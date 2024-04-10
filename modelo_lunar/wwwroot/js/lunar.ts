@@ -176,3 +176,30 @@ class HtmlPantallaMovil implements IHtmlVariante {
         return `<div class = 'ml-auto mr-auto p-5 bg-success text-white' id = '${id}' >${nombre}</div>`;
     }
 }
+interface IConfigurable {
+    dameGenerador(): IHtmlGenerarHtml;
+    dameCreador(): IRocable;
+    dameValidador(): IValidable;
+    dameMostrador(): IMuestra;
+}
+class ConfiguradorEquipoBasico implements IConfigurable {
+    dameGenerador(): IHtmlGenerarHtml {
+        return new ElHtml(new HtmlPantallaGrande);
+    }
+    dameCreador(): IRocable {
+        return new CreadorHTML();
+    }
+    dameValidador(): IValidable {
+        return new ValidadorMajose();
+    }
+    dameMostrador(): IMuestra {
+        return new MuestraAmericano();
+    }
+}
+
+let ConfiguradorGeneral: IConfigurable = new ConfiguradorEquipoBasico();
+function valida() {
+    let mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
+    let creador: IRocable = ConfiguradorGeneral.dameCreador();
+    let validadorRoca: IValidable = ConfiguradorGeneral.dameValidador();
+}
