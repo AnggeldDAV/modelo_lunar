@@ -3,7 +3,7 @@ class Roca {
     nombre: string = "";
     origen: string = "";
     dureza: number = 0;
-    tamanyograno : number = 0;
+    tamanyograno : string = "";
     tipo: string = "";
     tamanyocristal :number = 0;
     temperatura: number = 0;
@@ -12,6 +12,53 @@ class Roca {
     textura: string = "";
 
 }
+
+
+interface IValidableRocas {
+    isValid(MisRocas: Roca): boolean;
+}
+
+const patron = /[A -Z]{2}[0 - 9]{4}[A - Z]{2}/;
+let regexp = new RegExp(patron);
+
+class ValidadorGeneral implements IValidableRocas {
+    isValid(MisRocas: Roca): boolean {
+        return (
+            regexp.test(MisRocas.Identificador) &&
+            MisRocas.nombre.length > 0 &&
+            MisRocas.origen == "Igneas" || MisRocas.origen == "Metamorficas" || MisRocas.origen == "Sedimentarias" &&
+            MisRocas.dureza > 0 && MisRocas.dureza < 11 &&
+            MisRocas.tamanyograno == "Grano fino" || MisRocas.tamanyograno == "Grano Medio" || MisRocas.tamanyograno == "Grano Grueso" || MisRocas.tamanyograno == "Grano muy Grueso" &&
+            MisRocas.tipo.length > 0 &&
+            MisRocas.tamanyocristal > 0 && MisRocas.tamanyocristal <=10 &&
+            MisRocas.temperatura > -100 && MisRocas.temperatura <=100 &&
+            MisRocas.textura == "Vitrea" ||MisRocas.textura == "Afanitica" || MisRocas.textura == "Faneritica");
+    }
+}
+
+class ValidadorIgneas implements IValidableRocas {
+    isValid(MisRocas: Roca): boolean {
+        return (
+            MisRocas.origen == "Igneas" && MisRocas.tamanyograno == "Grano Muy Grueso" )
+    }
+
+}
+class ValidadorMetamorficas implements IValidableRocas {
+    isValid(MisRocas: Roca): boolean {
+        return (
+            MisRocas.origen == "Metamorficas" && MisRocas.tamanyograno == "Grano Medio" || MisRocas.tamanyograno == "Grano Fino" && MisRocas.textura == "Vitrea")
+    }
+
+}
+class ValidadorSedimentarias implements IValidableRocas {
+    isValid(MisRocas: Roca): boolean {
+        return (
+            MisRocas.origen == "Sedimentarias" && MisRocas.textura == "Faneritica")
+    }
+
+}
+
+
 interface IMuestra {
     dameContenido(MiRoca: Roca): string;
 }
@@ -153,4 +200,32 @@ class HtmlPantallaMovil implements IHtmlVariante {
         return `<div class = 'ml-auto mr-auto p-5 bg-success text-white' id = '${id}' >${nombre}</div>`;
     }
 }
+interface IConfigurable {
+    dameGenerador(): IHtmlGenerarHtml;
+    dameCreador(): IRocable;
+    dameValidador(): IValidable;
+    dameMostrador(): IMuestra;
+}
+class ConfiguradorEquipoBasico implements IConfigurable {
+    dameGenerador(): IHtmlGenerarHtml {
+        return new ElHtml(new HtmlPantallaGrande);
+    }
+    dameCreador(): IRocable {
+        return new CreadorHTML();
+    }
+    dameValidador(): IValidable {
+        return new ValidadorMajose();
+    }
+    dameMostrador(): IMuestra {
+        return new MuestraAmericano();
+    }
+}
+
+let ConfiguradorGeneral: IConfigurable = new ConfiguradorEquipoBasico();
+function valida() {
+    let mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
+    let creador: IRocable = ConfiguradorGeneral.dameCreador();
+    let validadorRoca: IValidable = ConfiguradorGeneral.dameValidador();
+}
+
 

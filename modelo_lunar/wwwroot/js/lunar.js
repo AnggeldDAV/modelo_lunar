@@ -137,4 +137,6 @@ var HtmlPantallaMovil = /** @class */ (function () {
     };
     return HtmlPantallaMovil;
 }());
+function valida() {
+}
 //# sourceMappingURL=lunar.js.map
