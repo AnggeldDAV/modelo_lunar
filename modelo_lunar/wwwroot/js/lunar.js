@@ -4,7 +4,7 @@ var Roca = /** @class */ (function () {
         this.nombre = "";
         this.origen = "";
         this.dureza = 0;
-        this.tamanyograno = 0;
+        this.tamanyograno = "";
         this.tipo = "";
         this.tamanyocristal = 0;
         this.temperatura = 0;
@@ -13,6 +13,48 @@ var Roca = /** @class */ (function () {
         this.textura = "";
     }
     return Roca;
+}());
+var patron = /[A -Z]{2}[0 - 9]{4}[A - Z]{2}/;
+var regexp = new RegExp(patron);
+var ValidadorGeneral = /** @class */ (function () {
+    function ValidadorGeneral() {
+    }
+    ValidadorGeneral.prototype.isValid = function (MisRocas) {
+        return (regexp.test(MisRocas.id) &&
+            MisRocas.nombre.length > 0 &&
+            MisRocas.origen == "Igneas" || MisRocas.origen == "Metamorficas" || MisRocas.origen == "Sedimentarias" &&
+            MisRocas.dureza > 0 && MisRocas.dureza < 11 &&
+            MisRocas.tamanyograno == "Grano fino" || MisRocas.tamanyograno == "Grano Medio" || MisRocas.tamanyograno == "Grano Grueso" || MisRocas.tamanyograno == "Grano muy Grueso" &&
+            MisRocas.tipo.length > 0 &&
+            MisRocas.tamanyocristal > 0 && MisRocas.tamanyocristal <= 10 &&
+            MisRocas.temperatura > -100 && MisRocas.temperatura <= 100 &&
+            MisRocas.textura == "Vitrea" || MisRocas.textura == "Afanitica" || MisRocas.textura == "Faneritica");
+    };
+    return ValidadorGeneral;
+}());
+var ValidadorIgneas = /** @class */ (function () {
+    function ValidadorIgneas() {
+    }
+    ValidadorIgneas.prototype.isValid = function (MisRocas) {
+        return (MisRocas.origen == "Igneas" && MisRocas.tamanyograno == "Grano Muy Grueso");
+    };
+    return ValidadorIgneas;
+}());
+var ValidadorMetamorficas = /** @class */ (function () {
+    function ValidadorMetamorficas() {
+    }
+    ValidadorMetamorficas.prototype.isValid = function (MisRocas) {
+        return (MisRocas.origen == "Metamorficas" && MisRocas.tamanyograno == "Grano Medio" || MisRocas.tamanyograno == "Grano Fino" && MisRocas.textura == "Vitrea");
+    };
+    return ValidadorMetamorficas;
+}());
+var ValidadorSedimentarias = /** @class */ (function () {
+    function ValidadorSedimentarias() {
+    }
+    ValidadorSedimentarias.prototype.isValid = function (MisRocas) {
+        return (MisRocas.origen == "Sedimentarias" && MisRocas.textura == "Faneritica");
+    };
+    return ValidadorSedimentarias;
 }());
 var MuestraAmericano = /** @class */ (function () {
     function MuestraAmericano() {
@@ -137,6 +179,27 @@ var HtmlPantallaMovil = /** @class */ (function () {
     };
     return HtmlPantallaMovil;
 }());
+var ConfiguradorEquipoBasico = /** @class */ (function () {
+    function ConfiguradorEquipoBasico() {
+    }
+    ConfiguradorEquipoBasico.prototype.dameGenerador = function () {
+        return new ElHtml(new HtmlPantallaGrande);
+    };
+    ConfiguradorEquipoBasico.prototype.dameCreador = function () {
+        return new CreadorHTML();
+    };
+    ConfiguradorEquipoBasico.prototype.dameValidador = function () {
+        return new ValidadorGeneral();
+    };
+    ConfiguradorEquipoBasico.prototype.dameMostrador = function () {
+        return new MuestraAmericano();
+    };
+    return ConfiguradorEquipoBasico;
+}());
+var ConfiguradorGeneral = new ConfiguradorEquipoBasico();
 function valida() {
+    var mostrador = ConfiguradorGeneral.dameMostrador();
+    var creador = ConfiguradorGeneral.dameCreador();
+    var validadorRoca = ConfiguradorGeneral.dameValidador();
 }
 //# sourceMappingURL=lunar.js.map

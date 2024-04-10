@@ -24,7 +24,7 @@ let regexp = new RegExp(patron);
 class ValidadorGeneral implements IValidableRocas {
     isValid(MisRocas: Roca): boolean {
         return (
-            regexp.test(MisRocas.Identificador) &&
+            regexp.test(MisRocas.id) &&
             MisRocas.nombre.length > 0 &&
             MisRocas.origen == "Igneas" || MisRocas.origen == "Metamorficas" || MisRocas.origen == "Sedimentarias" &&
             MisRocas.dureza > 0 && MisRocas.dureza < 11 &&
@@ -203,7 +203,7 @@ class HtmlPantallaMovil implements IHtmlVariante {
 interface IConfigurable {
     dameGenerador(): IHtmlGenerarHtml;
     dameCreador(): IRocable;
-    dameValidador(): IValidable;
+    dameValidador(): IValidableRocas;
     dameMostrador(): IMuestra;
 }
 class ConfiguradorEquipoBasico implements IConfigurable {
@@ -213,8 +213,8 @@ class ConfiguradorEquipoBasico implements IConfigurable {
     dameCreador(): IRocable {
         return new CreadorHTML();
     }
-    dameValidador(): IValidable {
-        return new ValidadorMajose();
+    dameValidador(): IValidableRocas {
+        return new ValidadorGeneral();
     }
     dameMostrador(): IMuestra {
         return new MuestraAmericano();
@@ -225,7 +225,7 @@ let ConfiguradorGeneral: IConfigurable = new ConfiguradorEquipoBasico();
 function valida() {
     let mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
     let creador: IRocable = ConfiguradorGeneral.dameCreador();
-    let validadorRoca: IValidable = ConfiguradorGeneral.dameValidador();
+    let validadorRoca: IValidableRocas = ConfiguradorGeneral.dameValidador();
 }
 
 
