@@ -17,12 +17,12 @@ interface IMuestra {
 }
 class MuestraAmericano implements IMuestra {
     dameContenido(MiRoca: Roca): string {
-        return (`<p>Identification: ${MiRoca.id} Name: ${MiRoca.nombre} Origin group: ${MiRoca.origen} Hardness: ${MiRoca.dureza} Grain's' size: ${MiRoca.tamanyograno} Classification: ${MiRoca.tipo} Crystal's' size: ${MiRoca.tamanyocristal} Formation temperature: ${MiRoca.temperatura} Structure: ${MiRoca.estructura} Grain's form: ${MiRoca.formagrano} Texture: ${MiRoca.textura}</p>`);
+        return (`<p>Identification: ${MiRoca.id} Name: ${MiRoca.nombre} Origin group: ${MiRoca.origen} Hardness: ${MiRoca.dureza} Grain's' size: ${MiRoca.tamanyograno} Classification: ${MiRoca.tipo} Crystal's' size: ${MiRoca.tamanyocristal} Formation temperature: ${MiRoca.temperatura} Structure: ${MiRoca.estructura} Grain's form: ${MiRoca.formaGrano} Texture: ${MiRoca.textura}</p>`);
     }
 }
 class MuestraEuropeo implements IMuestra {
     dameContenido(MiRoca: Roca): string {
-        return (`<p>Identificacion: ${MiRoca.id} Nombre: ${MiRoca.nombre} Grupo de origen: ${MiRoca.origen} Dureza: ${MiRoca.dureza} Tamaño grano: ${MiRoca.tamanyograno} Clasificacion: ${MiRoca.tipo} Tamaño cristal: ${MiRoca.tamanyocristal} Temperatuda de formacion: ${MiRoca.temperatura} Estructura: ${MiRoca.estructura} Forma de grano: ${MiRoca.formagrano} Textura: ${MiRoca.textura}</p>`);
+        return (`<p>Identificacion: ${MiRoca.id} Nombre: ${MiRoca.nombre} Grupo de origen: ${MiRoca.origen} Dureza: ${MiRoca.dureza} Tamaño grano: ${MiRoca.tamanyograno} Clasificacion: ${MiRoca.tipo} Tamaño cristal: ${MiRoca.tamanyocristal} Temperatuda de formacion: ${MiRoca.temperatura} Estructura: ${MiRoca.estructura} Forma de grano: ${MiRoca.formaGrano} Textura: ${MiRoca.textura}</p>`);
     }
 }
 

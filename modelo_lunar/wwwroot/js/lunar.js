@@ -4,12 +4,12 @@ var Roca = /** @class */ (function () {
         this.nombre = "";
         this.origen = "";
         this.dureza = 0;
-        this.tamanograno = 0;
-        this.clasificacion = "";
-        this.tamanocristal = 0;
+        this.tamanyograno = 0;
+        this.tipo = "";
+        this.tamanyocristal = 0;
         this.temperatura = 0;
         this.estructura = "";
-        this.formagrano = "";
+        this.formaGrano = "";
         this.textura = "";
     }
     return Roca;
@@ -18,7 +18,7 @@ var MuestraAmericano = /** @class */ (function () {
     function MuestraAmericano() {
     }
     MuestraAmericano.prototype.dameContenido = function (MiRoca) {
-        return ("<p>Identification: ".concat(MiRoca.id, " Name: ").concat(MiRoca.nombre, " Origin group: ").concat(MiRoca.origen, " Hardness: ").concat(MiRoca.dureza, " Grain's' size: ").concat(MiRoca.tamanograno, " Classification: ").concat(MiRoca.clasificacion, " Crystal's' size: ").concat(MiRoca.tamanocristal, " Formation temperature: ").concat(MiRoca.temperatura, " Structure: ").concat(MiRoca.estructura, " Grain's form: ").concat(MiRoca.formagrano, " Texture: ").concat(MiRoca.textura, "</p>"));
+        return ("<p>Identification: ".concat(MiRoca.id, " Name: ").concat(MiRoca.nombre, " Origin group: ").concat(MiRoca.origen, " Hardness: ").concat(MiRoca.dureza, " Grain's' size: ").concat(MiRoca.tamanyograno, " Classification: ").concat(MiRoca.tipo, " Crystal's' size: ").concat(MiRoca.tamanyocristal, " Formation temperature: ").concat(MiRoca.temperatura, " Structure: ").concat(MiRoca.estructura, " Grain's form: ").concat(MiRoca.formaGrano, " Texture: ").concat(MiRoca.textura, "</p>"));
     };
     return MuestraAmericano;
 }());
@@ -26,10 +26,10 @@ var MuestraEuropeo = /** @class */ (function () {
     function MuestraEuropeo() {
     }
     MuestraEuropeo.prototype.dameContenido = function (MiRoca) {
-        return ("<p>Identificacion: ".concat(MiRoca.id, " Nombre: ").concat(MiRoca.nombre, " Grupo de origen: ").concat(MiRoca.origen, " Dureza: ").concat(MiRoca.dureza, " Tama\u00F1o grano: ").concat(MiRoca.tamanograno, " Clasificacion: ").concat(MiRoca.clasificacion, " Tama\u00F1o cristal: ").concat(MiRoca.tamanocristal, " Temperatuda de formacion: ").concat(MiRoca.temperatura, " Estructura: ").concat(MiRoca.estructura, " Forma de grano: ").concat(MiRoca.formagrano, " Textura: ").concat(MiRoca.textura, "</p>"));
+        return ("<p>Identificacion: ".concat(MiRoca.id, " Nombre: ").concat(MiRoca.nombre, " Grupo de origen: ").concat(MiRoca.origen, " Dureza: ").concat(MiRoca.dureza, " Tama\u00F1o grano: ").concat(MiRoca.tamanyograno, " Clasificacion: ").concat(MiRoca.tipo, " Tama\u00F1o cristal: ").concat(MiRoca.tamanyocristal, " Temperatuda de formacion: ").concat(MiRoca.temperatura, " Estructura: ").concat(MiRoca.estructura, " Forma de grano: ").concat(MiRoca.formaGrano, " Textura: ").concat(MiRoca.textura, "</p>"));
     };
     return MuestraEuropeo;
-
+}());
 var ElHtml = /** @class */ (function () {
     function ElHtml(libreriaHtml) {
         this.generador = libreriaHtml;
