@@ -119,9 +119,10 @@ var CreadorHTML = /** @class */ (function () {
     CreadorHTML.prototype.dameRoca = function () {
         var MiRoca = new Roca();
         MiRoca.id = this.dameValorTexto("id");
+        MiRoca.nombre = this.dameValorTexto("nombre");
         MiRoca.origen = this.dameValorTexto("origen");
         MiRoca.dureza = this.dameValorNumero("dureza");
-        MiRoca.formaGrano = this.dameValorTexto("grano");
+        MiRoca.tamanyograno = this.dameValorTexto("grano");
         MiRoca.tipo = this.dameValorTexto("clasi");
         MiRoca.tamanyocristal = this.dameValorNumero("cristales");
         MiRoca.temperatura = this.dameValorNumero("temp");
@@ -199,7 +200,7 @@ var ConfiguradorEquipoBasico = /** @class */ (function () {
         return new CreadorHTML();
     };
     ConfiguradorEquipoBasico.prototype.dameValidador = function () {
-        return new ValidadorGeneral();
+        return new ValidadorSedimentarias();
     };
     ConfiguradorEquipoBasico.prototype.dameMostrador = function () {
         return new MuestraAmericano();

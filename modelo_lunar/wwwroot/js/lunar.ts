@@ -136,9 +136,10 @@ class CreadorHTML implements IRocable {
     dameRoca(): Roca {
         let MiRoca: Roca = new Roca();
         MiRoca.id = this.dameValorTexto("id");
+        MiRoca.nombre = this.dameValorTexto("nombre");
         MiRoca.origen = this.dameValorTexto("origen");
         MiRoca.dureza = this.dameValorNumero("dureza");
-        MiRoca.formaGrano = this.dameValorTexto("grano");
+        MiRoca.tamanyograno = this.dameValorTexto("grano");
         MiRoca.tipo = this.dameValorTexto("clasi");
         MiRoca.tamanyocristal = this.dameValorNumero("cristales");
         MiRoca.temperatura = this.dameValorNumero("temp");
@@ -227,7 +228,7 @@ class ConfiguradorEquipoBasico implements IConfigurable {
         return new CreadorHTML();
     }
     dameValidador(): IValidableRocas {
-        return new ValidadorGeneral();
+        return new ValidadorSedimentarias();
     }
     dameMostrador(): IMuestra {
         return new MuestraAmericano();
