@@ -166,16 +166,16 @@ interface IHtmlVariante {
 
 class HtmlPantallaGrande implements IHtmlVariante {
     dameContenedor(id: string): string {
-        return `<div id = ${id} clase = 'container row bg-info'></div>`;
+        return `<div id = '${id}'' class = 'container row bg-info'></div>`;
     }
     dameContenedorIzq(id: string): string {
-        return `<div id = ${id} clase = 'col-6'></div>`;
+        return `<div id = '${id}'' class = 'col-6'></div>`;
     }
     dameContenedorDech(id: string): string {
-        return `<div id = ${id} clase = 'col-6'></div>`;
+        return `<div id = '${id}' class = 'col-6'></div>`;
     }
     dameContenedorBoton(id: string) {
-        return `<div id = ${id} clase = 'd-flex justify-content-center container-fluid'></div>`;
+        return `<div id = '${id}' class = 'd-flex justify-content-center container-fluid'></div>`;
     }
     dameCss(): string {
         return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
@@ -184,22 +184,22 @@ class HtmlPantallaGrande implements IHtmlVariante {
         return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
     }
     dameBoton(id: string, nombre: string): string {
-        return `<div class = 'bg-success text-white p-5 text-center W-25' id = '${id}' >${nombre}</div>`;
+        return `<div class = 'bg-success text-white p-5 text-center w-25' id = '${id}' >${nombre}</div>`;
     }
 }
 
 class HtmlPantallaMovil implements IHtmlVariante {
     dameContenedor(id: string): string {
-        return `<div id = ${id} clase ='container row bg-info'></div>`;
+        return `<div id = '${id}' class ='container row bg-info'></div>`;
     }
     dameContenedorIzq(id: string): string {
-        return `<div id = ${id} clase = 'col-12'></div>`;
+        return `<div id = '${id}' class = 'col-12'></div>`;
     }
     dameContenedorDech(id: string): string {
-        return `<div id = ${id} clase = 'col-12'></div>`;
+        return `<div id = '${id}' class = 'col-12'></div>`;
     }
     dameContenedorBoton(id: string) {
-        return `<div id = ${id} clase = 'd-flex justify-content-center container-fluid'></div>`;
+        return `<div id = '${id}' class = 'd-flex justify-content-center container-fluid'></div>`;
     }
     dameCss(): string {
         return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
@@ -209,7 +209,7 @@ class HtmlPantallaMovil implements IHtmlVariante {
     }
    
     dameBoton(id: string, nombre: string): string {
-        return `<div class = 'bg-success text-white p-5 text-center W-25' id = '${id}' >${nombre}</div>`;
+        return `<div class = 'bg-success text-white p-5 text-center w-25' id = '${id}' >${nombre}</div>`;
     }
 }
 interface IConfigurable {
