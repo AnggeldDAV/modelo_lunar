@@ -231,6 +231,16 @@ function valida() {
     var mostrador = ConfiguradorGeneral.dameMostrador();
     var creador = ConfiguradorGeneral.dameCreador();
     var validadorRoca = ConfiguradorGeneral.dameValidador();
-    alert('entra');
+    var MiRoca = creador.dameRoca();
+    var frase = document.getElementById("mostrar");
+    var smiley = document.getElementById("imagen");
+    if (validadorRoca.isValid(MiRoca)) {
+        frase.innerHTML = mostrador.dameContenido(MiRoca).toString();
+        smiley.innerHTML = "<img src='img / feliz.png' />";
+    }
+    else {
+        frase.innerHTML = "NOOOOOOO";
+        smiley.innerHTML = "<img src='img / sad.jpg' />";
+    }
 }
 //# sourceMappingURL=lunar.js.map

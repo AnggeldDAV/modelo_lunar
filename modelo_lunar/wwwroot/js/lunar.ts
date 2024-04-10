@@ -259,7 +259,19 @@ function valida() {
     let mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
     let creador: IRocable = ConfiguradorGeneral.dameCreador();
     let validadorRoca: IValidableRocas = ConfiguradorGeneral.dameValidador();
-    alert('entra');
+
+    let MiRoca = creador.dameRoca();
+    let frase = document.getElementById("mostrar");
+    let smiley = document.getElementById("imagen")
+
+    if (validadorRoca.isValid(MiRoca)) {
+        frase.innerHTML = mostrador.dameContenido(MiRoca).toString();
+        smiley.innerHTML = "<img src='img / feliz.png' />";
+
+    } else {
+        frase.innerHTML = "NOOOOOOO";
+        smiley.innerHTML = "<img src='img / sad.jpg' />";
+    }
 }
 
 
