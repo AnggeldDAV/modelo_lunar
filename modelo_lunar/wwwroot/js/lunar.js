@@ -149,7 +149,7 @@ var HtmlPantallaGrande = /** @class */ (function () {
         return "<div id = ".concat(id, " clase = 'col-6'></div>");
     };
     HtmlPantallaGrande.prototype.dameContenedorBoton = function (id) {
-        return "<div id = ".concat(id, " clase = 'd-flex justify-content-center'></div>");
+        return "<div id = ".concat(id, " clase = 'd-flex justify-content-center container-fluid'></div>");
     };
     HtmlPantallaGrande.prototype.dameCss = function () {
         return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
@@ -158,7 +158,7 @@ var HtmlPantallaGrande = /** @class */ (function () {
         return "<label for = '".concat(id, "' >").concat(nombre, "</label><input type = 'text' id = '").concat(id, "' class = 'form-control'/>");
     };
     HtmlPantallaGrande.prototype.dameBoton = function (id, nombre) {
-        return "<div class = 'ml-auto mr-auto p-5 bg-success text-white w-25' id = '".concat(id, "' >").concat(nombre, "</div>");
+        return "<div class = 'bg-success text-white p-5 text-center W-25' id = '".concat(id, "' >").concat(nombre, "</div>");
     };
     return HtmlPantallaGrande;
 }());
@@ -184,7 +184,7 @@ var HtmlPantallaMovil = /** @class */ (function () {
         return "<input type = 'text' id ='".concat(id, "' class = 'form-control' placeholder = '").concat(nombre, "'/>");
     };
     HtmlPantallaMovil.prototype.dameBoton = function (id, nombre) {
-        return "<div class = 'bg-success text-white p-5 text-center' id = '".concat(id, "' >").concat(nombre, "</div>");
+        return "<div class = 'bg-success text-white p-5 text-center W-25' id = '".concat(id, "' >").concat(nombre, "</div>");
     };
     return HtmlPantallaMovil;
 }());
@@ -209,7 +209,11 @@ var ConfiguradorGeneral = new ConfiguradorEquipoBasico();
 var GeneradorHTML = ConfiguradorGeneral.dameGenerador();
 var _contenedor = document.getElementById("contenedor");
 if (_contenedor != null) {
-    _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daBoton().toString() + GeneradorHTML.daContenedorBoton().toString();
+    _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daContenedorBoton().toString();
+}
+var contenedorBoton = document.getElementById('contBoton');
+if (contenedorBoton != null) {
+    contenedorBoton.innerHTML = GeneradorHTML.daBoton().toString();
 }
 var _contIzq = document.getElementById("contIzq");
 var _contDech = document.getElementById("contDech");

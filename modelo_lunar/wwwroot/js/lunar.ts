@@ -175,7 +175,7 @@ class HtmlPantallaGrande implements IHtmlVariante {
         return `<div id = ${id} clase = 'col-6'></div>`;
     }
     dameContenedorBoton(id: string) {
-        return `<div id = ${id} clase = 'd-flex justify-content-center'></div>`;
+        return `<div id = ${id} clase = 'd-flex justify-content-center container-fluid'></div>`;
     }
     dameCss(): string {
         return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
@@ -184,7 +184,7 @@ class HtmlPantallaGrande implements IHtmlVariante {
         return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
     }
     dameBoton(id: string, nombre: string): string {
-        return `<div class = 'ml-auto mr-auto p-5 bg-success text-white w-25' id = '${id}' >${nombre}</div>`;
+        return `<div class = 'bg-success text-white p-5 text-center W-25' id = '${id}' >${nombre}</div>`;
     }
 }
 
@@ -209,7 +209,7 @@ class HtmlPantallaMovil implements IHtmlVariante {
     }
    
     dameBoton(id: string, nombre: string): string {
-        return `<div class = 'bg-success text-white p-5 text-center' id = '${id}' >${nombre}</div>`;
+        return `<div class = 'bg-success text-white p-5 text-center W-25' id = '${id}' >${nombre}</div>`;
     }
 }
 interface IConfigurable {
@@ -237,7 +237,11 @@ let ConfiguradorGeneral: IConfigurable = new ConfiguradorEquipoBasico();
 let GeneradorHTML: IHtmlGenerarHtml = ConfiguradorGeneral.dameGenerador();
 let _contenedor = document.getElementById("contenedor");
 if (_contenedor != null) {
-    _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daBoton().toString() + GeneradorHTML.daContenedorBoton().toString();
+    _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daContenedorBoton().toString();
+}
+let contenedorBoton = document.getElementById('contBoton');
+if (contenedorBoton != null) {
+    contenedorBoton.innerHTML = GeneradorHTML.daBoton().toString();
 }
 let _contIzq = document.getElementById("contIzq");
 let _contDech = document.getElementById("contDech");
