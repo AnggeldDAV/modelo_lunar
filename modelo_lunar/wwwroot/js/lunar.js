@@ -93,6 +93,7 @@ var ElHtml = /** @class */ (function () {
     };
     ElHtml.prototype.daContenidoIzq = function () {
         var contenido = this.generador.dameTexbox('id', 'Id:');
+        contenido += this.generador.dameTexbox('nombre', 'Nombre');
         contenido += this.generador.dameTexbox('origen', 'Origen:');
         contenido += this.generador.dameTexbox('dureza', 'Dureza:');
         contenido += this.generador.dameTexbox('grano', 'Tamaño Grano:');
@@ -140,10 +141,10 @@ var HtmlPantallaGrande = /** @class */ (function () {
     function HtmlPantallaGrande() {
     }
     HtmlPantallaGrande.prototype.dameContenedor = function (id) {
-        return "<div id = '".concat(id, "'' class = 'container row bg-info'></div>");
+        return "<div id = '".concat(id, "' class = 'container-fluid row bg-info'></div>");
     };
     HtmlPantallaGrande.prototype.dameContenedorIzq = function (id) {
-        return "<div id = '".concat(id, "'' class = 'col-6'></div>");
+        return "<div id = '".concat(id, "' class = 'col-6'></div>");
     };
     HtmlPantallaGrande.prototype.dameContenedorDech = function (id) {
         return "<div id = '".concat(id, "' class = 'col-6'></div>");
@@ -158,7 +159,7 @@ var HtmlPantallaGrande = /** @class */ (function () {
         return "<label for = '".concat(id, "' >").concat(nombre, "</label><input type = 'text' id = '").concat(id, "' class = 'form-control'/>");
     };
     HtmlPantallaGrande.prototype.dameBoton = function (id, nombre) {
-        return "<div class = 'bg-success text-white p-5 text-center w-25' id = '".concat(id, "' >").concat(nombre, "</div>");
+        return "<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '".concat(id, "' >").concat(nombre, "</div>");
     };
     return HtmlPantallaGrande;
 }());
@@ -166,7 +167,7 @@ var HtmlPantallaMovil = /** @class */ (function () {
     function HtmlPantallaMovil() {
     }
     HtmlPantallaMovil.prototype.dameContenedor = function (id) {
-        return "<div id = '".concat(id, "' class ='container row bg-info'></div>");
+        return "<div id = '".concat(id, "' class ='container-fluid row bg-info'></div>");
     };
     HtmlPantallaMovil.prototype.dameContenedorIzq = function (id) {
         return "<div id = '".concat(id, "' class = 'col-12'></div>");
@@ -184,7 +185,7 @@ var HtmlPantallaMovil = /** @class */ (function () {
         return "<input type = 'text' id ='".concat(id, "' class = 'form-control' placeholder = '").concat(nombre, "'/>");
     };
     HtmlPantallaMovil.prototype.dameBoton = function (id, nombre) {
-        return "<div class = 'bg-success text-white p-5 text-center w-25' id = '".concat(id, "' >").concat(nombre, "</div>");
+        return "<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '".concat(id, "' >").concat(nombre, "</div>");
     };
     return HtmlPantallaMovil;
 }());
@@ -207,6 +208,7 @@ var ConfiguradorEquipoBasico = /** @class */ (function () {
 }());
 var ConfiguradorGeneral = new ConfiguradorEquipoBasico();
 var GeneradorHTML = ConfiguradorGeneral.dameGenerador();
+document.write(GeneradorHTML.daContenedorPrincipal());
 var _contenedor = document.getElementById("contenedor");
 if (_contenedor != null) {
     _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daContenedorBoton().toString();

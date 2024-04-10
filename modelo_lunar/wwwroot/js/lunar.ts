@@ -108,6 +108,7 @@ class ElHtml implements IHtmlGenerarHtml {
     }
     daContenidoIzq(): string {
         let contenido: string = this.generador.dameTexbox('id', 'Id:');
+        contenido += this.generador.dameTexbox('nombre', 'Nombre');
         contenido += this.generador.dameTexbox('origen', 'Origen:');
         contenido += this.generador.dameTexbox('dureza', 'Dureza:');
         contenido += this.generador.dameTexbox('grano', 'Tamaño Grano:');
@@ -166,10 +167,10 @@ interface IHtmlVariante {
 
 class HtmlPantallaGrande implements IHtmlVariante {
     dameContenedor(id: string): string {
-        return `<div id = '${id}'' class = 'container row bg-info'></div>`;
+        return `<div id = '${id}' class = 'container-fluid row bg-info'></div>`;
     }
     dameContenedorIzq(id: string): string {
-        return `<div id = '${id}'' class = 'col-6'></div>`;
+        return `<div id = '${id}' class = 'col-6'></div>`;
     }
     dameContenedorDech(id: string): string {
         return `<div id = '${id}' class = 'col-6'></div>`;
@@ -184,13 +185,13 @@ class HtmlPantallaGrande implements IHtmlVariante {
         return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
     }
     dameBoton(id: string, nombre: string): string {
-        return `<div class = 'bg-success text-white p-5 text-center w-25' id = '${id}' >${nombre}</div>`;
+        return `<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '${id}' >${nombre}</div>`;
     }
 }
 
 class HtmlPantallaMovil implements IHtmlVariante {
     dameContenedor(id: string): string {
-        return `<div id = '${id}' class ='container row bg-info'></div>`;
+        return `<div id = '${id}' class ='container-fluid row bg-info'></div>`;
     }
     dameContenedorIzq(id: string): string {
         return `<div id = '${id}' class = 'col-12'></div>`;
@@ -209,7 +210,7 @@ class HtmlPantallaMovil implements IHtmlVariante {
     }
    
     dameBoton(id: string, nombre: string): string {
-        return `<div class = 'bg-success text-white p-5 text-center w-25' id = '${id}' >${nombre}</div>`;
+        return `<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '${id}' >${nombre}</div>`;
     }
 }
 interface IConfigurable {
@@ -235,7 +236,9 @@ class ConfiguradorEquipoBasico implements IConfigurable {
 
 let ConfiguradorGeneral: IConfigurable = new ConfiguradorEquipoBasico();
 let GeneradorHTML: IHtmlGenerarHtml = ConfiguradorGeneral.dameGenerador();
+document.write(GeneradorHTML.daContenedorPrincipal());
 let _contenedor = document.getElementById("contenedor");
+
 if (_contenedor != null) {
     _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daContenedorBoton().toString();
 }
