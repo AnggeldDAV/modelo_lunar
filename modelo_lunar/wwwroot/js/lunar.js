@@ -88,6 +88,9 @@ var ElHtml = /** @class */ (function () {
     ElHtml.prototype.daContenedorDech = function () {
         return this.generador.dameContenedorDech('contDech');
     };
+    ElHtml.prototype.daContenedorBoton = function () {
+        return this.generador.dameContenedorBoton('contBoton');
+    };
     ElHtml.prototype.daContenidoIzq = function () {
         var contenido = this.generador.dameTexbox('id', 'Id:');
         contenido += this.generador.dameTexbox('origen', 'Origen:');
@@ -145,6 +148,9 @@ var HtmlPantallaGrande = /** @class */ (function () {
     HtmlPantallaGrande.prototype.dameContenedorDech = function (id) {
         return "<div id = ".concat(id, " clase = 'col-6'></div>");
     };
+    HtmlPantallaGrande.prototype.dameContenedorBoton = function (id) {
+        return "<div id = ".concat(id, " clase = 'd-flex justify-content-center'></div>");
+    };
     HtmlPantallaGrande.prototype.dameCss = function () {
         return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
     };
@@ -152,7 +158,7 @@ var HtmlPantallaGrande = /** @class */ (function () {
         return "<label for = '".concat(id, "' >").concat(nombre, "</label><input type = 'text' id = '").concat(id, "' class = 'form-control'/>");
     };
     HtmlPantallaGrande.prototype.dameBoton = function (id, nombre) {
-        return "<div class = 'ml-auto mr-auto p-5 bg-success text-white' id = '".concat(id, "' >").concat(nombre, "</div>");
+        return "<div class = 'ml-auto mr-auto p-5 bg-success text-white w-25' id = '".concat(id, "' >").concat(nombre, "</div>");
     };
     return HtmlPantallaGrande;
 }());
@@ -168,6 +174,9 @@ var HtmlPantallaMovil = /** @class */ (function () {
     HtmlPantallaMovil.prototype.dameContenedorDech = function (id) {
         return "<div id = ".concat(id, " clase = 'col-12'></div>");
     };
+    HtmlPantallaMovil.prototype.dameContenedorBoton = function (id) {
+        return "<div id = ".concat(id, " clase = 'd-flex justify-content-center container-fluid'></div>");
+    };
     HtmlPantallaMovil.prototype.dameCss = function () {
         return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
     };
@@ -175,7 +184,7 @@ var HtmlPantallaMovil = /** @class */ (function () {
         return "<input type = 'text' id ='".concat(id, "' class = 'form-control' placeholder = '").concat(nombre, "'/>");
     };
     HtmlPantallaMovil.prototype.dameBoton = function (id, nombre) {
-        return "<div class = 'ml-auto mr-auto p-5 bg-success text-white' id = '".concat(id, "' >").concat(nombre, "</div>");
+        return "<div class = 'bg-success text-white p-5 text-center' id = '".concat(id, "' >").concat(nombre, "</div>");
     };
     return HtmlPantallaMovil;
 }());
@@ -199,16 +208,16 @@ var ConfiguradorEquipoBasico = /** @class */ (function () {
 var ConfiguradorGeneral = new ConfiguradorEquipoBasico();
 var GeneradorHTML = ConfiguradorGeneral.dameGenerador();
 var _contenedor = document.getElementById("contenedor");
+if (_contenedor != null) {
+    _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daBoton().toString() + GeneradorHTML.daContenedorBoton().toString();
+}
 var _contIzq = document.getElementById("contIzq");
 var _contDech = document.getElementById("contDech");
 if (_contIzq != null) {
-    _contIzq.innerHTML = GeneradorHTML.daContenidoIzq.toString();
+    _contIzq.innerHTML = GeneradorHTML.daContenidoIzq().toString();
 }
 if (_contDech != null) {
-    _contDech.innerHTML = GeneradorHTML.daContenedorDech().toString();
-}
-if (_contenedor != null) {
-    _contenedor.innerHTML = GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString();
+    _contDech.innerHTML = GeneradorHTML.daContenidoDech().toString();
 }
 var _boton = document.getElementById("enviar");
 if (_boton != null) {
@@ -218,5 +227,6 @@ function valida() {
     var mostrador = ConfiguradorGeneral.dameMostrador();
     var creador = ConfiguradorGeneral.dameCreador();
     var validadorRoca = ConfiguradorGeneral.dameValidador();
+    alert('entra');
 }
 //# sourceMappingURL=lunar.js.map

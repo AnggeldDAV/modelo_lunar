@@ -1,3 +1,4 @@
+
 class Roca {
     id: string = "";
     nombre: string = "";
@@ -80,6 +81,7 @@ interface IHtmlGenerarHtml {
     daContenedorDech(): string;
     daContenidoIzq(): string;
     daContenidoDech(): string;
+    daContenedorBoton(): string;
     daBoton(): string;
 }
 
@@ -100,6 +102,9 @@ class ElHtml implements IHtmlGenerarHtml {
     }
     daContenedorDech(): string {
         return this.generador.dameContenedorDech('contDech');
+    }
+    daContenedorBoton(): string {
+        return this.generador.dameContenedorBoton('contBoton');
     }
     daContenidoIzq(): string {
         let contenido: string = this.generador.dameTexbox('id', 'Id:');
@@ -155,6 +160,7 @@ interface IHtmlVariante {
     dameContenedorDech(id: string): string;
     dameCss(): string;
     dameTexbox(id: string, nombre: string): string;
+    dameContenedorBoton(id: string);
     dameBoton(id: string, nombre: string): string;
 }
 
@@ -168,6 +174,9 @@ class HtmlPantallaGrande implements IHtmlVariante {
     dameContenedorDech(id: string): string {
         return `<div id = ${id} clase = 'col-6'></div>`;
     }
+    dameContenedorBoton(id: string) {
+        return `<div id = ${id} clase = 'd-flex justify-content-center'></div>`;
+    }
     dameCss(): string {
         return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
     }
@@ -175,7 +184,7 @@ class HtmlPantallaGrande implements IHtmlVariante {
         return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
     }
     dameBoton(id: string, nombre: string): string {
-        return `<div class = 'ml-auto mr-auto p-5 bg-success text-white' id = '${id}' >${nombre}</div>`;
+        return `<div class = 'ml-auto mr-auto p-5 bg-success text-white w-25' id = '${id}' >${nombre}</div>`;
     }
 }
 
@@ -189,6 +198,9 @@ class HtmlPantallaMovil implements IHtmlVariante {
     dameContenedorDech(id: string): string {
         return `<div id = ${id} clase = 'col-12'></div>`;
     }
+    dameContenedorBoton(id: string) {
+        return `<div id = ${id} clase = 'd-flex justify-content-center container-fluid'></div>`;
+    }
     dameCss(): string {
         return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
     }
@@ -197,7 +209,7 @@ class HtmlPantallaMovil implements IHtmlVariante {
     }
    
     dameBoton(id: string, nombre: string): string {
-        return `<div class = 'ml-auto mr-auto p-5 bg-success text-white' id = '${id}' >${nombre}</div>`;
+        return `<div class = 'bg-success text-white p-5 text-center' id = '${id}' >${nombre}</div>`;
     }
 }
 interface IConfigurable {
@@ -224,16 +236,16 @@ class ConfiguradorEquipoBasico implements IConfigurable {
 let ConfiguradorGeneral: IConfigurable = new ConfiguradorEquipoBasico();
 let GeneradorHTML: IHtmlGenerarHtml = ConfiguradorGeneral.dameGenerador();
 let _contenedor = document.getElementById("contenedor");
+if (_contenedor != null) {
+    _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daBoton().toString() + GeneradorHTML.daContenedorBoton().toString();
+}
 let _contIzq = document.getElementById("contIzq");
 let _contDech = document.getElementById("contDech");
 if (_contIzq != null) {
-    _contIzq.innerHTML = GeneradorHTML.daContenidoIzq.toString();
+    _contIzq.innerHTML = GeneradorHTML.daContenidoIzq().toString();
 }
 if (_contDech != null) {
-    _contDech.innerHTML = GeneradorHTML.daContenedorDech().toString();
-}
-if (_contenedor != null) {
-    _contenedor.innerHTML = GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString();
+    _contDech.innerHTML = GeneradorHTML.daContenidoDech().toString();
 }
 let _boton = document.getElementById("enviar");
 if (_boton != null) {
@@ -243,6 +255,7 @@ function valida() {
     let mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
     let creador: IRocable = ConfiguradorGeneral.dameCreador();
     let validadorRoca: IValidableRocas = ConfiguradorGeneral.dameValidador();
+    alert('entra');
 }
 
 
