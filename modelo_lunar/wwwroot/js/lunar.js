@@ -197,6 +197,23 @@ var ConfiguradorEquipoBasico = /** @class */ (function () {
     return ConfiguradorEquipoBasico;
 }());
 var ConfiguradorGeneral = new ConfiguradorEquipoBasico();
+var GeneradorHTML = ConfiguradorGeneral.dameGenerador();
+var _contenedor = document.getElementById("contenedor");
+var _contIzq = document.getElementById("contIzq");
+var _contDech = document.getElementById("contDech");
+if (_contIzq != null) {
+    _contIzq.innerHTML = GeneradorHTML.daContenidoIzq.toString();
+}
+if (_contDech != null) {
+    _contDech.innerHTML = GeneradorHTML.daContenedorDech().toString();
+}
+if (_contenedor != null) {
+    _contenedor.innerHTML = GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString();
+}
+var _boton = document.getElementById("enviar");
+if (_boton != null) {
+    _boton.addEventListener("click", valida);
+}
 function valida() {
     var mostrador = ConfiguradorGeneral.dameMostrador();
     var creador = ConfiguradorGeneral.dameCreador();

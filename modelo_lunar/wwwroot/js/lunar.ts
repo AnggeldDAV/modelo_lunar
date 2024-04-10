@@ -222,6 +222,23 @@ class ConfiguradorEquipoBasico implements IConfigurable {
 }
 
 let ConfiguradorGeneral: IConfigurable = new ConfiguradorEquipoBasico();
+let GeneradorHTML: IHtmlGenerarHtml = ConfiguradorGeneral.dameGenerador();
+let _contenedor = document.getElementById("contenedor");
+let _contIzq = document.getElementById("contIzq");
+let _contDech = document.getElementById("contDech");
+if (_contIzq != null) {
+    _contIzq.innerHTML = GeneradorHTML.daContenidoIzq.toString();
+}
+if (_contDech != null) {
+    _contDech.innerHTML = GeneradorHTML.daContenedorDech().toString();
+}
+if (_contenedor != null) {
+    _contenedor.innerHTML = GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString();
+}
+let _boton = document.getElementById("enviar");
+if (_boton != null) {
+    _boton.addEventListener("click", valida);
+}
 function valida() {
     let mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
     let creador: IRocable = ConfiguradorGeneral.dameCreador();
