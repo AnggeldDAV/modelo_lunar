@@ -3,13 +3,27 @@ class Roca {
     nombre: string = "";
     origen: string = "";
     dureza: number = 0;
-    tamanyo: number = 0;
+    tamanyograno : number = 0;
     tipo: string = "";
+    tamanyocristal :number = 0;
     temperatura: number = 0;
     estructura: string = "";
     formaGrano: string = "";
     textura: string = "";
 
+}
+interface IMuestra {
+    dameContenido(MiRoca: Roca): string;
+}
+class MuestraAmericano implements IMuestra {
+    dameContenido(MiRoca: Roca): string {
+        return (`<p>Identification: ${MiRoca.id} Name: ${MiRoca.nombre} Origin group: ${MiRoca.origen} Hardness: ${MiRoca.dureza} Grain's' size: ${MiRoca.tamanyograno} Classification: ${MiRoca.tipo} Crystal's' size: ${MiRoca.tamanyocristal} Formation temperature: ${MiRoca.temperatura} Structure: ${MiRoca.estructura} Grain's form: ${MiRoca.formagrano} Texture: ${MiRoca.textura}</p>`);
+    }
+}
+class MuestraEuropeo implements IMuestra {
+    dameContenido(MiRoca: Roca): string {
+        return (`<p>Identificacion: ${MiRoca.id} Nombre: ${MiRoca.nombre} Grupo de origen: ${MiRoca.origen} Dureza: ${MiRoca.dureza} Tamaño grano: ${MiRoca.tamanyograno} Clasificacion: ${MiRoca.tipo} Tamaño cristal: ${MiRoca.tamanyocristal} Temperatuda de formacion: ${MiRoca.temperatura} Estructura: ${MiRoca.estructura} Forma de grano: ${MiRoca.formagrano} Textura: ${MiRoca.textura}</p>`);
+    }
 }
 
 interface IHtmlGenerarHtml {
