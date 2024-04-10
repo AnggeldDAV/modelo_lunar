@@ -263,14 +263,13 @@ function valida() {
     let MiRoca = creador.dameRoca();
     let frase = document.getElementById("mostrar");
     let smiley = document.getElementById("imagen")
-
     if (validadorRoca.isValid(MiRoca)) {
         frase.innerHTML = mostrador.dameContenido(MiRoca).toString();
-        smiley.innerHTML = "<img src='img / feliz.png' />";
+        smiley.innerHTML = "<img src='img/feliz.png' style=height:50px; width:50px;/>";
 
     } else {
         frase.innerHTML = "NOOOOOOO";
-        smiley.innerHTML = "<img src='img / sad.jpg' />";
+        smiley.innerHTML = "<img src='img/sad.jpg' style=height:50px; width:50px;/>";
     }
 }
 
