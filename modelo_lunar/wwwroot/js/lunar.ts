@@ -33,6 +33,7 @@ interface IHtmlGenerarHtml {
     daContenedorDech(): string;
     daContenidoIzq(): string;
     daContenidoDech(): string;
+    daBoton(): string;
 }
 
 class ElHtml implements IHtmlGenerarHtml {
@@ -54,19 +55,50 @@ class ElHtml implements IHtmlGenerarHtml {
         return this.generador.dameContenedorDech('contDech');
     }
     daContenidoIzq(): string {
-        let contenido: string = this.generador.dameId('id', 'Id:');
-        contenido += this.generador.dameOrigen('origen', 'Origen:');
-        contenido += this.generador.dameDureza('dureza', 'Dureza:');
-        contenido += this.generador.dameTamanoGrano('grano', 'Tamaño Grano:');
+        let contenido: string = this.generador.dameTexbox('id', 'Id:');
+        contenido += this.generador.dameTexbox('origen', 'Origen:');
+        contenido += this.generador.dameTexbox('dureza', 'Dureza:');
+        contenido += this.generador.dameTexbox('grano', 'Tamaño Grano:');
         return contenido;
     }
     daContenidoDech(): string {
-        let contenido: string = this.generador.dameClasificacion('clasi', 'Clasificacion:');
-        contenido += this.generador.dameTamanoCristales('cristales', 'Tamaño cristales::');
-        contenido += this.generador.dameTemperatura('temp', 'Temperatura:');
-        contenido += this.generador.dameEstructura('estructura', 'Estructura:');
-        contenido += this.generador.dameTextura('textura', 'Textura:');
+        let contenido: string = this.generador.dameTexbox('clasi', 'Clasificacion:');
+        contenido += this.generador.dameTexbox('cristales', 'Tamaño cristales::');
+        contenido += this.generador.dameTexbox('temp', 'Temperatura:');
+        contenido += this.generador.dameTexbox('estructura', 'Estructura:');
+        contenido += this.generador.dameTexbox('textura', 'Textura:');
         return contenido;
+    }
+    daBoton(): string {
+        let contenido: string = this.generador.dameBoton('enviar', 'enviar');
+        return contenido;
+    }
+}
+
+interface IRocable {
+    dameRoca(): Roca;
+}
+
+class CreadorHTML implements IRocable {
+    dameRoca(): Roca {
+        let MiRoca: Roca = new Roca();
+        MiRoca.id = this.dameValorTexto("id");
+        MiRoca.origen = this.dameValorTexto("origen");
+        MiRoca.dureza = this.dameValorNumero("dureza");
+        MiRoca.formaGrano = this.dameValorTexto("grano");
+        MiRoca.tipo = this.dameValorTexto("clasi");
+        MiRoca.tamanyocristal = this.dameValorNumero("cristales");
+        MiRoca.temperatura = this.dameValorNumero("temp");
+        MiRoca.estructura= this.dameValorTexto("estructura");
+        MiRoca.textura = this.dameValorTexto("textura");
+        return MiRoca;
+    }
+
+    private dameValorNumero(elementoId: string): number {
+        return Number(this.dameValorTexto(elementoId));
+    }
+    private dameValorTexto(elementoId: string) {
+        return (<HTMLInputElement>document.getElementById(elementoId)).value;
     }
 }
 
@@ -75,15 +107,7 @@ interface IHtmlVariante {
     dameContenedorIzq(id: string): string;
     dameContenedorDech(id: string): string;
     dameCss(): string;
-    dameId(id: string, nombre: string): string;
-    dameOrigen(id: string, nombre: string): string;
-    dameDureza(id: string, nombre: string): string;
-    dameTamanoGrano(id: string, nombre: string): string;
-    dameClasificacion(id: string, nombre: string): string;
-    dameTamanoCristales(id: string, nombre: string): string;
-    dameTemperatura(id: string, nombre: string): string;
-    dameEstructura(id: string, nombre: string): string;
-    dameTextura(id: string, nombre: string): string;
+    dameTexbox(id: string, nombre: string): string;
     dameBoton(id: string, nombre: string): string;
 }
 
@@ -100,31 +124,7 @@ class HtmlPantallaGrande implements IHtmlVariante {
     dameCss(): string {
         return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
     }
-    dameId(id: string, nombre: string): string {
-        return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
-    }
-    dameOrigen(id: string, nombre: string): string {
-        return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
-    }
-    dameDureza(id: string, nombre: string): string {
-        return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
-    }
-    dameTamanoGrano(id: string, nombre: string): string {
-        return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
-    }
-    dameClasificacion(id: string, nombre: string): string {
-        return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
-    }
-    dameTamanoCristales(id: string, nombre: string): string {
-        return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
-    }
-    dameTemperatura(id: string, nombre: string): string {
-        return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
-    }
-    dameEstructura(id: string, nombre: string): string {
-        return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
-    }
-    dameTextura(id: string, nombre: string): string {
+    dameTexbox(id: string, nombre: string): string {
         return `<label for = '${id}' >${nombre}</label><input type = 'text' id = '${id}' class = 'form-control'/>`;
     }
     dameBoton(id: string, nombre: string): string {
@@ -145,34 +145,12 @@ class HtmlPantallaMovil implements IHtmlVariante {
     dameCss(): string {
         return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
     }
-    dameId(id: string, nombre: string): string {
+    dameTexbox(id: string, nombre: string): string {
         return `<input type = 'text' id ='${id}' class = 'form-control' placeholder = '${nombre}'/>`;
     }
-    dameOrigen(id: string, nombre: string): string {
-        return `<input type = 'text' id ='${id}' class = v placeholder = '${nombre}'/>`;
-    }
-    dameDureza(id: string, nombre: string): string {
-        return `<input type = 'text' id ='${id}' class = 'form-control' placeholder = '${nombre}'/>`;
-    }
-    dameTamanoGrano(id: string, nombre: string): string {
-        return `<input type = 'text' id ='${id}' class = 'form-control' placeholder = '${nombre}'/>`;
-    }
-    dameClasificacion(id: string, nombre: string): string {
-        return `<input type = 'text' id ='${id}' class = 'form-control' placeholder = '${nombre}'/>`;
-    }
-    dameTamanoCristales(id: string, nombre: string): string {
-        return `<input type = 'text' id ='${id}' class = 'form-control' placeholder = '${nombre}'/>`;
-    }
-    dameTemperatura(id: string, nombre: string): string {
-        return `<input type = 'text' id ='${id}' class = 'form-control' placeholder = '${nombre}'/>`;
-    }
-    dameEstructura(id: string, nombre: string): string {
-        return `<input type = 'text' id ='${id}' class = 'form-control' placeholder = '${nombre}'/>`;
-    }
-    dameTextura(id: string, nombre: string): string {
-        return `<input type = 'text' id ='${id}' class = 'form-control' placeholder = '${nombre}'/>`;
-    }
+   
     dameBoton(id: string, nombre: string): string {
         return `<div class = 'ml-auto mr-auto p-5 bg-success text-white' id = '${id}' >${nombre}</div>`;
     }
 }
+

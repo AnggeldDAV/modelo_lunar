@@ -47,21 +47,49 @@ var ElHtml = /** @class */ (function () {
         return this.generador.dameContenedorDech('contDech');
     };
     ElHtml.prototype.daContenidoIzq = function () {
-        var contenido = this.generador.dameId('id', 'Id:');
-        contenido += this.generador.dameOrigen('origen', 'Origen:');
-        contenido += this.generador.dameDureza('dureza', 'Dureza:');
-        contenido += this.generador.dameTamanoGrano('grano', 'Tamaño Grano:');
+        var contenido = this.generador.dameTexbox('id', 'Id:');
+        contenido += this.generador.dameTexbox('origen', 'Origen:');
+        contenido += this.generador.dameTexbox('dureza', 'Dureza:');
+        contenido += this.generador.dameTexbox('grano', 'Tamaño Grano:');
         return contenido;
     };
     ElHtml.prototype.daContenidoDech = function () {
-        var contenido = this.generador.dameClasificacion('clasi', 'Clasificacion:');
-        contenido += this.generador.dameTamanoCristales('cristales', 'Tamaño cristales::');
-        contenido += this.generador.dameTemperatura('temp', 'Temperatura:');
-        contenido += this.generador.dameEstructura('estructura', 'Estructura:');
-        contenido += this.generador.dameTextura('textura', 'Textura:');
+        var contenido = this.generador.dameTexbox('clasi', 'Clasificacion:');
+        contenido += this.generador.dameTexbox('cristales', 'Tamaño cristales::');
+        contenido += this.generador.dameTexbox('temp', 'Temperatura:');
+        contenido += this.generador.dameTexbox('estructura', 'Estructura:');
+        contenido += this.generador.dameTexbox('textura', 'Textura:');
+        return contenido;
+    };
+    ElHtml.prototype.daBoton = function () {
+        var contenido = this.generador.dameBoton('enviar', 'enviar');
         return contenido;
     };
     return ElHtml;
+}());
+var CreadorHTML = /** @class */ (function () {
+    function CreadorHTML() {
+    }
+    CreadorHTML.prototype.dameRoca = function () {
+        var MiRoca = new Roca();
+        MiRoca.id = this.dameValorTexto("id");
+        MiRoca.origen = this.dameValorTexto("origen");
+        MiRoca.dureza = this.dameValorNumero("dureza");
+        MiRoca.formaGrano = this.dameValorTexto("grano");
+        MiRoca.tipo = this.dameValorTexto("clasi");
+        MiRoca.tamanyocristal = this.dameValorNumero("cristales");
+        MiRoca.temperatura = this.dameValorNumero("temp");
+        MiRoca.estructura = this.dameValorTexto("estructura");
+        MiRoca.textura = this.dameValorTexto("textura");
+        return MiRoca;
+    };
+    CreadorHTML.prototype.dameValorNumero = function (elementoId) {
+        return Number(this.dameValorTexto(elementoId));
+    };
+    CreadorHTML.prototype.dameValorTexto = function (elementoId) {
+        return document.getElementById(elementoId).value;
+    };
+    return CreadorHTML;
 }());
 var HtmlPantallaGrande = /** @class */ (function () {
     function HtmlPantallaGrande() {
@@ -78,31 +106,7 @@ var HtmlPantallaGrande = /** @class */ (function () {
     HtmlPantallaGrande.prototype.dameCss = function () {
         return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
     };
-    HtmlPantallaGrande.prototype.dameId = function (id, nombre) {
-        return "<label for = '".concat(id, "' >").concat(nombre, "</label><input type = 'text' id = '").concat(id, "' class = 'form-control'/>");
-    };
-    HtmlPantallaGrande.prototype.dameOrigen = function (id, nombre) {
-        return "<label for = '".concat(id, "' >").concat(nombre, "</label><input type = 'text' id = '").concat(id, "' class = 'form-control'/>");
-    };
-    HtmlPantallaGrande.prototype.dameDureza = function (id, nombre) {
-        return "<label for = '".concat(id, "' >").concat(nombre, "</label><input type = 'text' id = '").concat(id, "' class = 'form-control'/>");
-    };
-    HtmlPantallaGrande.prototype.dameTamanoGrano = function (id, nombre) {
-        return "<label for = '".concat(id, "' >").concat(nombre, "</label><input type = 'text' id = '").concat(id, "' class = 'form-control'/>");
-    };
-    HtmlPantallaGrande.prototype.dameClasificacion = function (id, nombre) {
-        return "<label for = '".concat(id, "' >").concat(nombre, "</label><input type = 'text' id = '").concat(id, "' class = 'form-control'/>");
-    };
-    HtmlPantallaGrande.prototype.dameTamanoCristales = function (id, nombre) {
-        return "<label for = '".concat(id, "' >").concat(nombre, "</label><input type = 'text' id = '").concat(id, "' class = 'form-control'/>");
-    };
-    HtmlPantallaGrande.prototype.dameTemperatura = function (id, nombre) {
-        return "<label for = '".concat(id, "' >").concat(nombre, "</label><input type = 'text' id = '").concat(id, "' class = 'form-control'/>");
-    };
-    HtmlPantallaGrande.prototype.dameEstructura = function (id, nombre) {
-        return "<label for = '".concat(id, "' >").concat(nombre, "</label><input type = 'text' id = '").concat(id, "' class = 'form-control'/>");
-    };
-    HtmlPantallaGrande.prototype.dameTextura = function (id, nombre) {
+    HtmlPantallaGrande.prototype.dameTexbox = function (id, nombre) {
         return "<label for = '".concat(id, "' >").concat(nombre, "</label><input type = 'text' id = '").concat(id, "' class = 'form-control'/>");
     };
     HtmlPantallaGrande.prototype.dameBoton = function (id, nombre) {
@@ -125,31 +129,7 @@ var HtmlPantallaMovil = /** @class */ (function () {
     HtmlPantallaMovil.prototype.dameCss = function () {
         return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
     };
-    HtmlPantallaMovil.prototype.dameId = function (id, nombre) {
-        return "<input type = 'text' id ='".concat(id, "' class = 'form-control' placeholder = '").concat(nombre, "'/>");
-    };
-    HtmlPantallaMovil.prototype.dameOrigen = function (id, nombre) {
-        return "<input type = 'text' id ='".concat(id, "' class = v placeholder = '").concat(nombre, "'/>");
-    };
-    HtmlPantallaMovil.prototype.dameDureza = function (id, nombre) {
-        return "<input type = 'text' id ='".concat(id, "' class = 'form-control' placeholder = '").concat(nombre, "'/>");
-    };
-    HtmlPantallaMovil.prototype.dameTamanoGrano = function (id, nombre) {
-        return "<input type = 'text' id ='".concat(id, "' class = 'form-control' placeholder = '").concat(nombre, "'/>");
-    };
-    HtmlPantallaMovil.prototype.dameClasificacion = function (id, nombre) {
-        return "<input type = 'text' id ='".concat(id, "' class = 'form-control' placeholder = '").concat(nombre, "'/>");
-    };
-    HtmlPantallaMovil.prototype.dameTamanoCristales = function (id, nombre) {
-        return "<input type = 'text' id ='".concat(id, "' class = 'form-control' placeholder = '").concat(nombre, "'/>");
-    };
-    HtmlPantallaMovil.prototype.dameTemperatura = function (id, nombre) {
-        return "<input type = 'text' id ='".concat(id, "' class = 'form-control' placeholder = '").concat(nombre, "'/>");
-    };
-    HtmlPantallaMovil.prototype.dameEstructura = function (id, nombre) {
-        return "<input type = 'text' id ='".concat(id, "' class = 'form-control' placeholder = '").concat(nombre, "'/>");
-    };
-    HtmlPantallaMovil.prototype.dameTextura = function (id, nombre) {
+    HtmlPantallaMovil.prototype.dameTexbox = function (id, nombre) {
         return "<input type = 'text' id ='".concat(id, "' class = 'form-control' placeholder = '").concat(nombre, "'/>");
     };
     HtmlPantallaMovil.prototype.dameBoton = function (id, nombre) {
