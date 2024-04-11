@@ -82,8 +82,8 @@ interface IHtmlGenerarHtml {
     daContenidoIzq(): string;
     daContenidoDech(): string;
     daContenedorBoton(): string;
-    daSelect(validadores: string[]): string;
-    daBoton(): string;
+    daSelect(id: string, validadores: string[]): string;
+    daBoton(id: string): string;
 }
 
 class ElHtml implements IHtmlGenerarHtml {
@@ -123,12 +123,12 @@ class ElHtml implements IHtmlGenerarHtml {
         contenido += this.generador.dameTexbox('textura', 'Textura:');
         return contenido;
     }
-    daBoton(): string {
-        let contenido: string = this.generador.dameBoton('enviar', 'enviar');
+    daBoton(id: string): string {
+        let contenido: string = this.generador.dameBoton(id, 'enviar');
         return contenido;
     }
-    daSelect(validadores: string[]): string {
-        return this.generador.dameSelect('select', validadores);
+    daSelect(id: string, validadores: string[]): string {
+        return this.generador.dameSelect(id, validadores);
     }
 }
 
@@ -285,11 +285,18 @@ let principal = document.getElementById('contPrincipal');
 principal.innerHTML = GeneradorHTML.daContenedorPrincipal();
 let _contenedor = document.getElementById("contenedor");
 
-let validadores = ['opcion por defecto', 'ValidadorGeneral', 'validadorMetamorficas', 'validadorIgneas', 'ValidadorSedimentarias'];
+let validadores: string [] = ['opcion por defecto', 'ValidadorGeneral', 'validadorMetamorficas', 'validadorIgneas', 'ValidadorSedimentarias'];
+let Htmls: string[] = ['pantallaMovil', 'pantallaGrande'];
+let selectores: string = '';
 
-_contenedor.innerHTML = GeneradorHTML.daSelect(validadores);
+selectores += GeneradorHTML.daSelect('select', validadores);
+selectores += GeneradorHTML.daSelect('pnatalla', Htmls);
+selectores += GeneradorHTML.daBoton('selects');
+_contenedor.innerHTML = selectores;
 let select = <HTMLSelectElement>document.getElementById('select');
-if (select != null) select.addEventListener('change', selecionada, false);
+let selectPantalla = <HTMLSelectElement>document.getElementById('pantalla');
+let boton = document.getElementById('selects');
+boton.addEventListener('click', selecionada, false);
 
 
 
@@ -344,7 +351,7 @@ function selecionada() {
     }
     let contenedorBoton = document.getElementById('contBoton');
     if (contenedorBoton != null) {
-        contenedorBoton.innerHTML = GeneradorHTML.daBoton().toString();
+        contenedorBoton.innerHTML = GeneradorHTML.daBoton('enviar').toString();
     }
     let _contIzq = document.getElementById("contIzq");
     let _contDech = document.getElementById("contDech");

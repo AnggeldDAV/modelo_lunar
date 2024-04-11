@@ -107,12 +107,12 @@ var ElHtml = /** @class */ (function () {
         contenido += this.generador.dameTexbox('textura', 'Textura:');
         return contenido;
     };
-    ElHtml.prototype.daBoton = function () {
-        var contenido = this.generador.dameBoton('enviar', 'enviar');
+    ElHtml.prototype.daBoton = function (id) {
+        var contenido = this.generador.dameBoton(id, 'enviar');
         return contenido;
     };
-    ElHtml.prototype.daSelect = function (validadores) {
-        return this.generador.dameSelect('select', validadores);
+    ElHtml.prototype.daSelect = function (id, validadores) {
+        return this.generador.dameSelect(id, validadores);
     };
     return ElHtml;
 }());
@@ -257,10 +257,16 @@ var principal = document.getElementById('contPrincipal');
 principal.innerHTML = GeneradorHTML.daContenedorPrincipal();
 var _contenedor = document.getElementById("contenedor");
 var validadores = ['opcion por defecto', 'ValidadorGeneral', 'validadorMetamorficas', 'validadorIgneas', 'ValidadorSedimentarias'];
-_contenedor.innerHTML = GeneradorHTML.daSelect(validadores);
+var Htmls = ['pantallaMovil', 'pantallaGrande'];
+var selectores = '';
+selectores += GeneradorHTML.daSelect('select', validadores);
+selectores += GeneradorHTML.daSelect('pnatalla', Htmls);
+selectores += GeneradorHTML.daBoton('selects');
+_contenedor.innerHTML = selectores;
 var select = document.getElementById('select');
-if (select != null)
-    select.addEventListener('change', selecionada, false);
+var selectPantalla = document.getElementById('pantalla');
+var boton = document.getElementById('selects');
+boton.addEventListener('click', selecionada, false);
 function valida() {
     var validador = vselec();
     var mostrador = ConfiguradorGeneral.dameMostrador();
@@ -302,7 +308,7 @@ function selecionada() {
     }
     var contenedorBoton = document.getElementById('contBoton');
     if (contenedorBoton != null) {
-        contenedorBoton.innerHTML = GeneradorHTML.daBoton().toString();
+        contenedorBoton.innerHTML = GeneradorHTML.daBoton('enviar').toString();
     }
     var _contIzq = document.getElementById("contIzq");
     var _contDech = document.getElementById("contDech");
