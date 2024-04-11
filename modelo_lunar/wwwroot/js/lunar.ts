@@ -285,7 +285,7 @@ let principal = document.getElementById('contPrincipal');
 principal.innerHTML = GeneradorHTML.daContenedorPrincipal();
 let _contenedor = document.getElementById("contenedor");
 
-let validadores = ['ValidadorGeneral', 'validadorMetamorficas', 'validadorIgneas', 'ValidadorSedimentarias'];
+let validadores = ['opcion por defecto', 'ValidadorGeneral', 'validadorMetamorficas', 'validadorIgneas', 'ValidadorSedimentarias'];
 
 _contenedor.innerHTML = GeneradorHTML.daSelect(validadores);
 let select = <HTMLSelectElement>document.getElementById('select');
