@@ -162,6 +162,9 @@ var HtmlPantallaGrande = /** @class */ (function () {
     HtmlPantallaGrande.prototype.dameBoton = function (id, nombre) {
         return "<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '".concat(id, "' >").concat(nombre, "</div>");
     };
+    HtmlPantallaGrande.prototype.sameSelect = function (id, valoresSelect) {
+        return '';
+    };
     return HtmlPantallaGrande;
 }());
 var HtmlPantallaMovil = /** @class */ (function () {
@@ -188,7 +191,45 @@ var HtmlPantallaMovil = /** @class */ (function () {
     HtmlPantallaMovil.prototype.dameBoton = function (id, nombre) {
         return "<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '".concat(id, "' >").concat(nombre, "</div>");
     };
+    HtmlPantallaMovil.prototype.sameSelect = function (id, valoresSelect) {
+        return '';
+    };
     return HtmlPantallaMovil;
+}());
+var HtmlSeleccionarValidador = /** @class */ (function () {
+    function HtmlSeleccionarValidador() {
+    }
+    HtmlSeleccionarValidador.prototype.dameContenedor = function (id) {
+        return "<div id = '".concat(id, "' class ='container-fluid row bg-info'></div>");
+    };
+    HtmlSeleccionarValidador.prototype.dameContenedorIzq = function (id) {
+        return "<div id = '".concat(id, "' class = 'col-12'></div>");
+    };
+    HtmlSeleccionarValidador.prototype.dameContenedorDech = function (id) {
+        return "<div id = '".concat(id, "' class = 'col-12'></div>");
+    };
+    HtmlSeleccionarValidador.prototype.dameContenedorBoton = function (id) {
+        return "<div id = '".concat(id, "' class = 'd-flex justify-content-center container-fluid'></div>");
+    };
+    HtmlSeleccionarValidador.prototype.dameCss = function () {
+        return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
+    };
+    HtmlSeleccionarValidador.prototype.dameTexbox = function (id, nombre) {
+        return "<input type = 'text' id ='".concat(id, "' class = 'form-control' placeholder = '").concat(nombre, "'/>");
+        ;
+    };
+    HtmlSeleccionarValidador.prototype.dameBoton = function (id, nombre) {
+        return "<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '".concat(id, "' >").concat(nombre, "</div>");
+    };
+    HtmlSeleccionarValidador.prototype.sameSelect = function (id, valoresSelect) {
+        var contenido = "<selec id = '".concat(id, "' class = 'form-control'>");
+        for (var i = 0; i < valoresSelect.length; i++) {
+            contenido += "<option value = '".concat(valoresSelect[i], "'>").concat(valoresSelect[i], "<option>");
+        }
+        contenido += '</select>';
+        return contenido;
+    };
+    return HtmlSeleccionarValidador;
 }());
 var ConfiguradorEquipoBasico = /** @class */ (function () {
     function ConfiguradorEquipoBasico() {
@@ -246,5 +287,7 @@ function valida() {
         frase.innerHTML = "NOOOOOOO";
         smiley.innerHTML = "<img src='img/sad.jpg' style=height:50px; width:50px;/>";
     }
+}
+function selecionada() {
 }
 //# sourceMappingURL=lunar.js.map
