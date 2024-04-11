@@ -324,9 +324,17 @@ function vselec(): IValidableRocas {
             return new ValidadorSedimentarias();
     }
 }
+function htmlSelect(): IHtmlVariante {
+    switch (selectPantalla) {
+        case "pantallaMovil":
+            return new HtmlPantallaMovil();
+        case "pantallaGrande":
+            return new HtmlPantallaGrande();
+    }
+}
 function selecionada() {
     let ConfiguradorGeneral: IConfigurable = new ConfiguradorEquipoBasico();
-    let GeneradorHTML: IHtmlGenerarHtml = ConfiguradorGeneral.dameGenerador(new HtmlPantallaGrande);
+    let GeneradorHTML: IHtmlGenerarHtml = ConfiguradorGeneral.dameGenerador(htmlSelect());
     let principal = document.getElementById('contPrincipal');
     principal.innerHTML = GeneradorHTML.daContenedorPrincipal();
     let _contenedor = document.getElementById("contenedor");
