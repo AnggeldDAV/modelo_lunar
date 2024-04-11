@@ -290,13 +290,14 @@ let validadores = ['ValidadorGeneral', 'validadorMetamorficas', 'validadorIgneas
 _contenedor.innerHTML = GeneradorHTML.daSelect(validadores);
 let select = <HTMLSelectElement>document.getElementById('select');
 if (select != null) select.addEventListener('change', selecionada, false);
-let valorSelect: string = select.options[select.selectedIndex].value;
+
 
 
 function valida() {
+    let validador: IValidableRocas = vselec();
     let mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
     let creador: IRocable = ConfiguradorGeneral.dameCreador();
-    let validadorRoca: IValidableRocas = ConfiguradorGeneral.dameValidador(Validador);
+    let validadorRoca: IValidableRocas = ConfiguradorGeneral.dameValidador(validador);
 
     let MiRoca = creador.dameRoca();
     let frase = document.getElementById("mostrar");
@@ -310,7 +311,19 @@ function valida() {
         smiley.innerHTML = "<img src='img/sad.jpg' style=height:50px; width:50px;/>";
     }
 }
-
+function vselec(): IValidableRocas {
+    let valorSelect: string = select.options[select.selectedIndex].value;
+    switch (valorSelect) {
+        case "ValidadorGeneral":
+            return new ValidadorGeneral();
+        case "validadorMetamorficas":
+            return new ValidadorMetamorficas();
+        case "validadorIgneas":
+            return new ValidadorIgneas();
+        case "ValidadorSedimentarias":
+            return new ValidadorSedimentarias();
+    }
+}
 function selecionada() {
     let ConfiguradorGeneral: IConfigurable = new ConfiguradorEquipoBasico();
     let GeneradorHTML: IHtmlGenerarHtml = ConfiguradorGeneral.dameGenerador(new HtmlPantallaGrande);

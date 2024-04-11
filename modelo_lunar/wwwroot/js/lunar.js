@@ -14,7 +14,7 @@ var Roca = /** @class */ (function () {
     }
     return Roca;
 }());
-var patron = /[A -Z]{2}[0 - 9]{4}[A - Z]{2}/;
+var patron = /[A-z]{2}[0-9]{4}[A-z]{2}/;
 var regexp = new RegExp(patron);
 var ValidadorGeneral = /** @class */ (function () {
     function ValidadorGeneral() {
@@ -243,8 +243,8 @@ var ConfiguradorEquipoBasico = /** @class */ (function () {
     ConfiguradorEquipoBasico.prototype.dameCreador = function () {
         return new CreadorHTML();
     };
-    ConfiguradorEquipoBasico.prototype.dameValidador = function () {
-        return new ValidadorSedimentarias();
+    ConfiguradorEquipoBasico.prototype.dameValidador = function (Validador) {
+        return Validador;
     };
     ConfiguradorEquipoBasico.prototype.dameMostrador = function () {
         return new MuestraAmericano();
@@ -261,11 +261,11 @@ _contenedor.innerHTML = GeneradorHTML.daSelect(validadores);
 var select = document.getElementById('select');
 if (select != null)
     select.addEventListener('change', selecionada, false);
-var valorSelect = select.options[select.selectedIndex].value;
 function valida() {
+    var validador = vselec();
     var mostrador = ConfiguradorGeneral.dameMostrador();
     var creador = ConfiguradorGeneral.dameCreador();
-    var validadorRoca = ConfiguradorGeneral.dameValidador();
+    var validadorRoca = ConfiguradorGeneral.dameValidador(validador);
     var MiRoca = creador.dameRoca();
     var frase = document.getElementById("mostrar");
     var smiley = document.getElementById("imagen");
@@ -276,6 +276,19 @@ function valida() {
     else {
         frase.innerHTML = "NOOOOOOO";
         smiley.innerHTML = "<img src='img/sad.jpg' style=height:50px; width:50px;/>";
+    }
+}
+function vselec() {
+    var valorSelect = select.options[select.selectedIndex].value;
+    switch (valorSelect) {
+        case "ValidadorGeneral":
+            return new ValidadorGeneral();
+        case "validadorMetamorficas":
+            return new ValidadorMetamorficas();
+        case "validadorIgneas":
+            return new ValidadorIgneas();
+        case "ValidadorSedimentarias":
+            return new ValidadorSedimentarias();
     }
 }
 function selecionada() {
