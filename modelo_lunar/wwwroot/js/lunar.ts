@@ -237,7 +237,8 @@ class ConfiguradorEquipoBasico implements IConfigurable {
 
 let ConfiguradorGeneral: IConfigurable = new ConfiguradorEquipoBasico();
 let GeneradorHTML: IHtmlGenerarHtml = ConfiguradorGeneral.dameGenerador();
-document.write(GeneradorHTML.daContenedorPrincipal());
+let principal = document.getElementById('contPrincipal');
+principal.innerHTML = GeneradorHTML.daContenedorPrincipal();
 let _contenedor = document.getElementById("contenedor");
 
 if (_contenedor != null) {

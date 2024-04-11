@@ -209,7 +209,8 @@ var ConfiguradorEquipoBasico = /** @class */ (function () {
 }());
 var ConfiguradorGeneral = new ConfiguradorEquipoBasico();
 var GeneradorHTML = ConfiguradorGeneral.dameGenerador();
-document.write(GeneradorHTML.daContenedorPrincipal());
+var principal = document.getElementById('contPrincipal');
+principal.innerHTML = GeneradorHTML.daContenedorPrincipal();
 var _contenedor = document.getElementById("contenedor");
 if (_contenedor != null) {
     _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daContenedorBoton().toString();
