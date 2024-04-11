@@ -1,5 +1,5 @@
 
-class Roca {
+class Roca { //-Definimos la clase Roca
     id: string = "";
     nombre: string = "";
     origen: string = "";
@@ -15,14 +15,14 @@ class Roca {
 }
 
 
-interface IValidableRocas {
+interface IValidableRocas { //-Validamos si elementos Roca son válidos
     isValid(MisRocas: Roca): boolean;
 }
 
 const patron = /[A-z]{2}[0-9]{4}[A-z]{2}/;
 let regexp = new RegExp(patron);
 
-class ValidadorGeneral implements IValidableRocas {
+class ValidadorGeneral implements IValidableRocas { //-Establecemos los requisitos mínimos para que Roca sea válido
     isValid(MisRocas: Roca): boolean {
         return (
             regexp.test(MisRocas.id) &&
@@ -37,21 +37,24 @@ class ValidadorGeneral implements IValidableRocas {
     }
 }
 
-class ValidadorIgneas implements IValidableRocas {
+class ValidadorIgneas implements IValidableRocas { //-Establecer las condiciones para que el validadorIgneas cumpla las condiciones de nuestro ValidadorRocas. O lo que es lo
+                                                    //-mismo, las condiciones para que una roca ígnea sea válida, tienen que cumplir a su vez que sea roca válida.
     isValid(MisRocas: Roca): boolean {
         return (
             MisRocas.origen == "Igneas" && MisRocas.tamanyograno == "Grano Muy Grueso" )
     }
 
 }
-class ValidadorMetamorficas implements IValidableRocas {
+class ValidadorMetamorficas implements IValidableRocas {//-Establecer las condiciones para que el validadorMetamóficas cumpla las condiciones de nuestro ValidadorRocas.O lo que es lo
+                                                        //-mismo, las condiciones para que una roca metamórfica sea válida, tienen que cumplir a su vez que sea roca válida.
     isValid(MisRocas: Roca): boolean {
         return (
             MisRocas.origen == "Metamorficas" && MisRocas.tamanyograno == "Grano Medio" || MisRocas.tamanyograno == "Grano Fino" && MisRocas.textura == "Vitrea")
     }
 
 }
-class ValidadorSedimentarias implements IValidableRocas {
+class ValidadorSedimentarias implements IValidableRocas {//-Establecer las condiciones para que el validadorMetamóficas cumpla las condiciones de nuestro ValidadorRocas.O lo que es lo
+                                                         //-mismo, las condiciones para que una roca sedimentaria sea válida, tienen que cumplir a su vez que sea roca válida.
     isValid(MisRocas: Roca): boolean {
         return (
             MisRocas.origen == "Sedimentarias" && MisRocas.textura == "Faneritica")
@@ -60,21 +63,22 @@ class ValidadorSedimentarias implements IValidableRocas {
 }
 
 
-interface IMuestra {
+interface IMuestra { //- Creamos la interfaz que nos muestra una roca válida. Creamos el método dameContenido() que nos da el elemenro MiRoca en string.
     dameContenido(MiRoca: Roca): string;
 }
-class MuestraAmericano implements IMuestra {
+class MuestraAmericano implements IMuestra { //-Nos muestra el elemento MiRoca con la estructra marcada por el return. 
+                                             //El contenido del párrafo que no apunta a lo que intoducimos por teclado nos lo muestra en inglés.
     dameContenido(MiRoca: Roca): string {
         return (`<p>Identification: ${MiRoca.id} Name: ${MiRoca.nombre} Origin group: ${MiRoca.origen} Hardness: ${MiRoca.dureza} Grain's' size: ${MiRoca.tamanyograno} Classification: ${MiRoca.tipo} Crystal's' size: ${MiRoca.tamanyocristal} Formation temperature: ${MiRoca.temperatura} Structure: ${MiRoca.estructura} Grain's form: ${MiRoca.formaGrano} Texture: ${MiRoca.textura}</p>`);
     }
 }
-class MuestraEuropeo implements IMuestra {
+class MuestraEuropeo implements IMuestra {//- Lo mismo que el anterior pero en castellano.
     dameContenido(MiRoca: Roca): string {
         return (`<p>Identificacion: ${MiRoca.id} Nombre: ${MiRoca.nombre} Grupo de origen: ${MiRoca.origen} Dureza: ${MiRoca.dureza} Tamaño grano: ${MiRoca.tamanyograno} Clasificacion: ${MiRoca.tipo} Tamaño cristal: ${MiRoca.tamanyocristal} Temperatuda de formacion: ${MiRoca.temperatura} Estructura: ${MiRoca.estructura} Forma de grano: ${MiRoca.formaGrano} Textura: ${MiRoca.textura}</p>`);
     }
 }
 
-interface IHtmlGenerarHtml {
+interface IHtmlGenerarHtml { //- interface que nos genera el html general
     dameHtml(): string;
     daContenedorPrincipal(): string;
     daContenedorIzq(): string;
@@ -86,28 +90,28 @@ interface IHtmlGenerarHtml {
     daBoton(id: string): string;
 }
 
-class ElHtml implements IHtmlGenerarHtml {
-    generador: IHtmlVariante;
-    constructor(libreriaHtml: IHtmlVariante) {
+class ElHtml implements IHtmlGenerarHtml {//La clase sobre la que se genera el html y en la que introduciremos todos los elementos que vemos por pantalla
+    generador: IHtmlVariante;//elemento al que defines como tipo IHtmlVariante.
+    constructor(libreriaHtml: IHtmlVariante) { //asignamos los métodos de html variante a nuestra libreria
         this.generador = libreriaHtml;
     }
-    dameHtml(): string {
+    dameHtml(): string { //defines el método con el que aplicas el bootstrap en el html.
         return this.generador.dameCss();
 
     }
-    daContenedorPrincipal(): string {
+    daContenedorPrincipal(): string { //devuelve un string correspondiente a un elemento html llamado 'contenedor'
         return this.generador.dameContenedor('contenedor');
     }
-    daContenedorIzq(): string {
+    daContenedorIzq(): string { //devuelve un string correspondiente a un elemento html llamado 'contIzq'
         return this.generador.dameContenedorIzq('contIzq');
     }
-    daContenedorDech(): string {
+    daContenedorDech(): string {//devuelve un string correspondiente a un elemento html llamado 'contDech'
         return this.generador.dameContenedorDech('contDech');
     }
-    daContenedorBoton(): string {
+    daContenedorBoton(): string {//devuelve un string correspondiente a un elemento html llamado 'contBoton'
         return this.generador.dameContenedorBoton('contBoton');
     }
-    daContenidoIzq(): string {
+    daContenidoIzq(): string { //-Aqui introducimos en un string todos los elementos html que contendrá nuestro 'contIzq'
         let contenido: string = this.generador.dameTexbox('id', 'Id:');
         contenido += this.generador.dameTexbox('nombre', 'Nombre');
         contenido += this.generador.dameTexbox('origen', 'Origen:');
@@ -115,7 +119,7 @@ class ElHtml implements IHtmlGenerarHtml {
         contenido += this.generador.dameTexbox('grano', 'Tamaño Grano:');
         return contenido;
     }
-    daContenidoDech(): string {
+    daContenidoDech(): string { //-Aqui introducimos en un string todos los elementos html que contendrá nuestro 'contDech'
         let contenido: string = this.generador.dameTexbox('clasi', 'Clasificacion:');
         contenido += this.generador.dameTexbox('cristales', 'Tamaño cristales::');
         contenido += this.generador.dameTexbox('temp', 'Temperatura:');
@@ -123,16 +127,16 @@ class ElHtml implements IHtmlGenerarHtml {
         contenido += this.generador.dameTexbox('textura', 'Textura:');
         return contenido;
     }
-    daBoton(id: string): string {
+    daBoton(id: string): string {//-Aqui introducimos en un string todos los elementos html que contendrá nuestro 'boton'
         let contenido: string = this.generador.dameBoton(id, 'enviar');
         return contenido;
     }
-    daSelect(id: string, validadores: string[]): string {
+    daSelect(id: string, validadores: string[]): string {//-Aqui introducimos en un string todos los elementos html que contendrá nuestro 'select'
         return this.generador.dameSelect(id, validadores);
     }
 }
 
-interface IRocable {
+interface IRocable { //-Una interfaz que nos da un método que nos devuelve una roca
     dameRoca(): Roca;
 }
 
@@ -160,7 +164,7 @@ class CreadorHTML implements IRocable {
     }
 }
 
-interface IHtmlVariante {
+interface IHtmlVariante { //La interfaz que nos dice los métodos que van a implementar nuestra librería.
     dameContenedor(id: string): string;
     dameContenedorIzq(id: string): string;
     dameContenedorDech(id: string): string;

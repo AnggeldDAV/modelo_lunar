@@ -35,6 +35,7 @@ var ValidadorGeneral = /** @class */ (function () {
 var ValidadorIgneas = /** @class */ (function () {
     function ValidadorIgneas() {
     }
+    //-mismo, las condiciones para que una roca ígnea sea válida, tienen que cumplir a su vez que sea roca válida.
     ValidadorIgneas.prototype.isValid = function (MisRocas) {
         return (MisRocas.origen == "Igneas" && MisRocas.tamanyograno == "Grano Muy Grueso");
     };
@@ -43,6 +44,7 @@ var ValidadorIgneas = /** @class */ (function () {
 var ValidadorMetamorficas = /** @class */ (function () {
     function ValidadorMetamorficas() {
     }
+    //-mismo, las condiciones para que una roca metamórfica sea válida, tienen que cumplir a su vez que sea roca válida.
     ValidadorMetamorficas.prototype.isValid = function (MisRocas) {
         return (MisRocas.origen == "Metamorficas" && MisRocas.tamanyograno == "Grano Medio" || MisRocas.tamanyograno == "Grano Fino" && MisRocas.textura == "Vitrea");
     };
@@ -51,6 +53,7 @@ var ValidadorMetamorficas = /** @class */ (function () {
 var ValidadorSedimentarias = /** @class */ (function () {
     function ValidadorSedimentarias() {
     }
+    //-mismo, las condiciones para que una roca sedimentaria sea válida, tienen que cumplir a su vez que sea roca válida.
     ValidadorSedimentarias.prototype.isValid = function (MisRocas) {
         return (MisRocas.origen == "Sedimentarias" && MisRocas.textura == "Faneritica");
     };
@@ -59,6 +62,7 @@ var ValidadorSedimentarias = /** @class */ (function () {
 var MuestraAmericano = /** @class */ (function () {
     function MuestraAmericano() {
     }
+    //El contenido del párrafo que no apunta a lo que intoducimos por teclado nos lo muestra en inglés.
     MuestraAmericano.prototype.dameContenido = function (MiRoca) {
         return ("<p>Identification: ".concat(MiRoca.id, " Name: ").concat(MiRoca.nombre, " Origin group: ").concat(MiRoca.origen, " Hardness: ").concat(MiRoca.dureza, " Grain's' size: ").concat(MiRoca.tamanyograno, " Classification: ").concat(MiRoca.tipo, " Crystal's' size: ").concat(MiRoca.tamanyocristal, " Formation temperature: ").concat(MiRoca.temperatura, " Structure: ").concat(MiRoca.estructura, " Grain's form: ").concat(MiRoca.formaGrano, " Texture: ").concat(MiRoca.textura, "</p>"));
     };
