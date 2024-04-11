@@ -288,9 +288,9 @@ let _contenedor = document.getElementById("contenedor");
 let validadores: string [] = ['opcion por defecto', 'ValidadorGeneral', 'validadorMetamorficas', 'validadorIgneas', 'ValidadorSedimentarias'];
 let Htmls: string[] = ['pantallaMovil', 'pantallaGrande'];
 let selectores: string = '';
-
+selectores += GeneradorHTML.dameHtml();
 selectores += GeneradorHTML.daSelect('select', validadores);
-selectores += GeneradorHTML.daSelect('pnatalla', Htmls);
+selectores += GeneradorHTML.daSelect('pantalla', Htmls);
 selectores += GeneradorHTML.daBoton('selects');
 _contenedor.innerHTML = selectores;
 let select = <HTMLSelectElement>document.getElementById('select');
