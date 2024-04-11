@@ -111,6 +111,9 @@ var ElHtml = /** @class */ (function () {
         var contenido = this.generador.dameBoton('enviar', 'enviar');
         return contenido;
     };
+    ElHtml.prototype.daSelect = function (validadores) {
+        return this.generador.dameSelect('select', validadores);
+    };
     return ElHtml;
 }());
 var CreadorHTML = /** @class */ (function () {
@@ -162,7 +165,7 @@ var HtmlPantallaGrande = /** @class */ (function () {
     HtmlPantallaGrande.prototype.dameBoton = function (id, nombre) {
         return "<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '".concat(id, "' >").concat(nombre, "</div>");
     };
-    HtmlPantallaGrande.prototype.sameSelect = function (id, valoresSelect) {
+    HtmlPantallaGrande.prototype.dameSelect = function (id, valoresSelect) {
         return '';
     };
     return HtmlPantallaGrande;
@@ -191,7 +194,7 @@ var HtmlPantallaMovil = /** @class */ (function () {
     HtmlPantallaMovil.prototype.dameBoton = function (id, nombre) {
         return "<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '".concat(id, "' >").concat(nombre, "</div>");
     };
-    HtmlPantallaMovil.prototype.sameSelect = function (id, valoresSelect) {
+    HtmlPantallaMovil.prototype.dameSelect = function (id, valoresSelect) {
         return '';
     };
     return HtmlPantallaMovil;
@@ -221,10 +224,10 @@ var HtmlSeleccionarValidador = /** @class */ (function () {
     HtmlSeleccionarValidador.prototype.dameBoton = function (id, nombre) {
         return "<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '".concat(id, "' >").concat(nombre, "</div>");
     };
-    HtmlSeleccionarValidador.prototype.sameSelect = function (id, valoresSelect) {
-        var contenido = "<selec id = '".concat(id, "' class = 'form-control'>");
+    HtmlSeleccionarValidador.prototype.dameSelect = function (id, valoresSelect) {
+        var contenido = "<select id = '".concat(id, "' class = 'form-control'>");
         for (var i = 0; i < valoresSelect.length; i++) {
-            contenido += "<option value = '".concat(valoresSelect[i], "'>").concat(valoresSelect[i], "<option>");
+            contenido += "<option value = '".concat(valoresSelect[i], "'>").concat(valoresSelect[i], "</option>");
         }
         contenido += '</select>';
         return contenido;
@@ -234,8 +237,8 @@ var HtmlSeleccionarValidador = /** @class */ (function () {
 var ConfiguradorEquipoBasico = /** @class */ (function () {
     function ConfiguradorEquipoBasico() {
     }
-    ConfiguradorEquipoBasico.prototype.dameGenerador = function () {
-        return new ElHtml(new HtmlPantallaGrande);
+    ConfiguradorEquipoBasico.prototype.dameGenerador = function (html) {
+        return new ElHtml(html);
     };
     ConfiguradorEquipoBasico.prototype.dameCreador = function () {
         return new CreadorHTML();
@@ -249,29 +252,16 @@ var ConfiguradorEquipoBasico = /** @class */ (function () {
     return ConfiguradorEquipoBasico;
 }());
 var ConfiguradorGeneral = new ConfiguradorEquipoBasico();
-var GeneradorHTML = ConfiguradorGeneral.dameGenerador();
+var GeneradorHTML = ConfiguradorGeneral.dameGenerador(new HtmlSeleccionarValidador);
 var principal = document.getElementById('contPrincipal');
 principal.innerHTML = GeneradorHTML.daContenedorPrincipal();
 var _contenedor = document.getElementById("contenedor");
-if (_contenedor != null) {
-    _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daContenedorBoton().toString();
-}
-var contenedorBoton = document.getElementById('contBoton');
-if (contenedorBoton != null) {
-    contenedorBoton.innerHTML = GeneradorHTML.daBoton().toString();
-}
-var _contIzq = document.getElementById("contIzq");
-var _contDech = document.getElementById("contDech");
-if (_contIzq != null) {
-    _contIzq.innerHTML = GeneradorHTML.daContenidoIzq().toString();
-}
-if (_contDech != null) {
-    _contDech.innerHTML = GeneradorHTML.daContenidoDech().toString();
-}
-var _boton = document.getElementById("enviar");
-if (_boton != null) {
-    _boton.addEventListener("click", valida);
-}
+var validadores = ['ValidadorGeneral', 'validadorMetamorficas', 'validadorIgneas', 'ValidadorSedimentarias'];
+_contenedor.innerHTML = GeneradorHTML.daSelect(validadores);
+var select = document.getElementById('select');
+if (select != null)
+    select.addEventListener('change', selecionada, false);
+var valorSelect = select.options[select.selectedIndex].value;
 function valida() {
     var mostrador = ConfiguradorGeneral.dameMostrador();
     var creador = ConfiguradorGeneral.dameCreador();
@@ -289,5 +279,29 @@ function valida() {
     }
 }
 function selecionada() {
+    var ConfiguradorGeneral = new ConfiguradorEquipoBasico();
+    var GeneradorHTML = ConfiguradorGeneral.dameGenerador(new HtmlPantallaGrande);
+    var principal = document.getElementById('contPrincipal');
+    principal.innerHTML = GeneradorHTML.daContenedorPrincipal();
+    var _contenedor = document.getElementById("contenedor");
+    if (_contenedor != null) {
+        _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daContenedorBoton().toString();
+    }
+    var contenedorBoton = document.getElementById('contBoton');
+    if (contenedorBoton != null) {
+        contenedorBoton.innerHTML = GeneradorHTML.daBoton().toString();
+    }
+    var _contIzq = document.getElementById("contIzq");
+    var _contDech = document.getElementById("contDech");
+    if (_contIzq != null) {
+        _contIzq.innerHTML = GeneradorHTML.daContenidoIzq().toString();
+    }
+    if (_contDech != null) {
+        _contDech.innerHTML = GeneradorHTML.daContenidoDech().toString();
+    }
+    var _boton = document.getElementById("enviar");
+    if (_boton != null) {
+        _boton.addEventListener("click", valida);
+    }
 }
 //# sourceMappingURL=lunar.js.map
