@@ -19,7 +19,7 @@ interface IValidableRocas {
     isValid(MisRocas: Roca): boolean;
 }
 
-const patron = /[A -Z]{2}[0 - 9]{4}[A - Z]{2}/;
+const patron = /[A-z]{2}[0-9]{4}[A-z]{2}/;
 let regexp = new RegExp(patron);
 
 class ValidadorGeneral implements IValidableRocas {
@@ -257,7 +257,7 @@ class HtmlSeleccionarValidador implements IHtmlVariante {
 interface IConfigurable {
     dameGenerador(): IHtmlGenerarHtml;
     dameCreador(): IRocable;
-    dameValidador(): IValidableRocas;
+    dameValidador(Validador): IValidableRocas;
     dameMostrador(): IMuestra;
 }
 class ConfiguradorEquipoBasico implements IConfigurable {
@@ -267,8 +267,8 @@ class ConfiguradorEquipoBasico implements IConfigurable {
     dameCreador(): IRocable {
         return new CreadorHTML();
     }
-    dameValidador(): IValidableRocas {
-        return new ValidadorSedimentarias();
+    dameValidador(Validador: IValidableRocas): IValidableRocas {
+        return Validador;
     }
     dameMostrador(): IMuestra {
         return new MuestraAmericano();
@@ -300,10 +300,11 @@ let _boton = document.getElementById("enviar");
 if (_boton != null) {
     _boton.addEventListener("click", valida);
 }
+
 function valida() {
     let mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
     let creador: IRocable = ConfiguradorGeneral.dameCreador();
-    let validadorRoca: IValidableRocas = ConfiguradorGeneral.dameValidador();
+    let validadorRoca: IValidableRocas = ConfiguradorGeneral.dameValidador(Validador);
 
     let MiRoca = creador.dameRoca();
     let frase = document.getElementById("mostrar");
