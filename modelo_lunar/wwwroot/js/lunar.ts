@@ -82,6 +82,7 @@ interface IHtmlGenerarHtml {
     daContenidoIzq(): string;
     daContenidoDech(): string;
     daContenedorBoton(): string;
+    daSelect(validadores: string[]): string;
     daBoton(): string;
 }
 
@@ -126,6 +127,9 @@ class ElHtml implements IHtmlGenerarHtml {
         let contenido: string = this.generador.dameBoton('enviar', 'enviar');
         return contenido;
     }
+    daSelect(validadores: string[]): string {
+        return this.generador.dameSelect('select', validadores);
+    }
 }
 
 interface IRocable {
@@ -162,7 +166,7 @@ interface IHtmlVariante {
     dameContenedorDech(id: string): string;
     dameCss(): string;
     dameTexbox(id: string, nombre: string): string;
-    sameSelect(id: string, valoresSelect: string);
+    dameSelect(id: string, valoresSelect: string[]);
     dameContenedorBoton(id: string);
     dameBoton(id: string, nombre: string): string;
 }
@@ -189,7 +193,7 @@ class HtmlPantallaGrande implements IHtmlVariante {
     dameBoton(id: string, nombre: string): string {
         return `<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '${id}' >${nombre}</div>`;
     }
-    sameSelect(id: string, valoresSelect: string) {
+    dameSelect(id: string, valoresSelect: string[]) {
         return '';
     }
 }
@@ -217,7 +221,7 @@ class HtmlPantallaMovil implements IHtmlVariante {
     dameBoton(id: string, nombre: string): string {
         return `<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '${id}' >${nombre}</div>`;
     }
-    sameSelect(id: string, valoresSelect: string) {
+    dameSelect(id: string, valoresSelect: string[]) {
         return '';
     }
 }
@@ -245,24 +249,24 @@ class HtmlSeleccionarValidador implements IHtmlVariante {
     dameBoton(id: string, nombre: string): string {
         return `<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '${id}' >${nombre}</div>`;
     }
-    sameSelect(id: string, valoresSelect: string) {
-        let contenido = `<selec id = '${id}' class = 'form-control'>`;
+    dameSelect(id: string, valoresSelect: string[]) {
+        let contenido = `<select id = '${id}' class = 'form-control'>`;
         for (let i = 0; i < valoresSelect.length; i++) {
-            contenido += `<option value = '${valoresSelect[i]}'>${valoresSelect[i]}<option>`;
+            contenido += `<option value = '${valoresSelect[i]}'>${valoresSelect[i]}</option>`;
         }
         contenido += '</select>';
         return contenido;
     }
 }
 interface IConfigurable {
-    dameGenerador(): IHtmlGenerarHtml;
+    dameGenerador(html: IHtmlVariante): IHtmlGenerarHtml;
     dameCreador(): IRocable;
     dameValidador(): IValidableRocas;
     dameMostrador(): IMuestra;
 }
 class ConfiguradorEquipoBasico implements IConfigurable {
-    dameGenerador(): IHtmlGenerarHtml {
-        return new ElHtml(new HtmlPantallaGrande);
+    dameGenerador(html: IHtmlVariante): IHtmlGenerarHtml {
+        return new ElHtml(html);
     }
     dameCreador(): IRocable {
         return new CreadorHTML();
@@ -276,30 +280,20 @@ class ConfiguradorEquipoBasico implements IConfigurable {
 }
 
 let ConfiguradorGeneral: IConfigurable = new ConfiguradorEquipoBasico();
-let GeneradorHTML: IHtmlGenerarHtml = ConfiguradorGeneral.dameGenerador();
+let GeneradorHTML: IHtmlGenerarHtml = ConfiguradorGeneral.dameGenerador(new HtmlSeleccionarValidador);
 let principal = document.getElementById('contPrincipal');
 principal.innerHTML = GeneradorHTML.daContenedorPrincipal();
 let _contenedor = document.getElementById("contenedor");
 
-if (_contenedor != null) {
-    _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daContenedorBoton().toString();
-}
-let contenedorBoton = document.getElementById('contBoton');
-if (contenedorBoton != null) {
-    contenedorBoton.innerHTML = GeneradorHTML.daBoton().toString();
-}
-let _contIzq = document.getElementById("contIzq");
-let _contDech = document.getElementById("contDech");
-if (_contIzq != null) {
-    _contIzq.innerHTML = GeneradorHTML.daContenidoIzq().toString();
-}
-if (_contDech != null) {
-    _contDech.innerHTML = GeneradorHTML.daContenidoDech().toString();
-}
-let _boton = document.getElementById("enviar");
-if (_boton != null) {
-    _boton.addEventListener("click", valida);
-}
+let validadores = ['ValidadorGeneral', 'validadorMetamorficas', 'validadorIgneas', 'ValidadorSedimentarias'];
+
+_contenedor.innerHTML = GeneradorHTML.daSelect(validadores);
+let select = <HTMLSelectElement>document.getElementById('select');
+if (select != null) select.addEventListener('change', selecionada, false);
+let valorSelect: string = select.options[select.selectedIndex].value;
+
+
+
 function valida() {
     let mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
     let creador: IRocable = ConfiguradorGeneral.dameCreador();
@@ -319,7 +313,31 @@ function valida() {
 }
 
 function selecionada() {
+    let ConfiguradorGeneral: IConfigurable = new ConfiguradorEquipoBasico();
+    let GeneradorHTML: IHtmlGenerarHtml = ConfiguradorGeneral.dameGenerador(new HtmlPantallaGrande);
+    let principal = document.getElementById('contPrincipal');
+    principal.innerHTML = GeneradorHTML.daContenedorPrincipal();
+    let _contenedor = document.getElementById("contenedor");
 
+    if (_contenedor != null) {
+        _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daContenedorBoton().toString();
+    }
+    let contenedorBoton = document.getElementById('contBoton');
+    if (contenedorBoton != null) {
+        contenedorBoton.innerHTML = GeneradorHTML.daBoton().toString();
+    }
+    let _contIzq = document.getElementById("contIzq");
+    let _contDech = document.getElementById("contDech");
+    if (_contIzq != null) {
+        _contIzq.innerHTML = GeneradorHTML.daContenidoIzq().toString();
+    }
+    if (_contDech != null) {
+        _contDech.innerHTML = GeneradorHTML.daContenidoDech().toString();
+    }
+    let _boton = document.getElementById("enviar");
+    if (_boton != null) {
+        _boton.addEventListener("click", valida);
+    }
 }
 
 
