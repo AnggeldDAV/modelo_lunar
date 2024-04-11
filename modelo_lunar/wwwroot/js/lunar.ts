@@ -162,6 +162,7 @@ interface IHtmlVariante {
     dameContenedorDech(id: string): string;
     dameCss(): string;
     dameTexbox(id: string, nombre: string): string;
+    sameSelect(id: string, valoresSelect: string);
     dameContenedorBoton(id: string);
     dameBoton(id: string, nombre: string): string;
 }
@@ -188,6 +189,9 @@ class HtmlPantallaGrande implements IHtmlVariante {
     dameBoton(id: string, nombre: string): string {
         return `<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '${id}' >${nombre}</div>`;
     }
+    sameSelect(id: string, valoresSelect: string) {
+        return '';
+    }
 }
 
 class HtmlPantallaMovil implements IHtmlVariante {
@@ -212,6 +216,42 @@ class HtmlPantallaMovil implements IHtmlVariante {
    
     dameBoton(id: string, nombre: string): string {
         return `<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '${id}' >${nombre}</div>`;
+    }
+    sameSelect(id: string, valoresSelect: string) {
+        return '';
+    }
+}
+
+class HtmlSeleccionarValidador implements IHtmlVariante {
+    dameContenedor(id: string): string {
+        return `<div id = '${id}' class ='container-fluid row bg-info'></div>`;
+    }
+    dameContenedorIzq(id: string): string {
+        return `<div id = '${id}' class = 'col-12'></div>`;
+    }
+    dameContenedorDech(id: string): string {
+        return `<div id = '${id}' class = 'col-12'></div>`;
+    }
+    dameContenedorBoton(id: string) {
+        return `<div id = '${id}' class = 'd-flex justify-content-center container-fluid'></div>`;
+    }
+    dameCss(): string {
+        return '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous" >';
+    }
+    dameTexbox(id: string, nombre: string): string {
+        return `<input type = 'text' id ='${id}' class = 'form-control' placeholder = '${nombre}'/>`;;
+    }
+
+    dameBoton(id: string, nombre: string): string {
+        return `<div class = 'bg-success text-white p-5 text-center w-25 mt-3' id = '${id}' >${nombre}</div>`;
+    }
+    sameSelect(id: string, valoresSelect: string) {
+        let contenido = `<selec id = '${id}' class = 'form-control'>`;
+        for (let i = 0; i < valoresSelect.length; i++) {
+            contenido += `<option value = '${valoresSelect[i]}'>${valoresSelect[i]}<option>`;
+        }
+        contenido += '</select>';
+        return contenido;
     }
 }
 interface IConfigurable {
@@ -276,6 +316,10 @@ function valida() {
         frase.innerHTML = "NOOOOOOO";
         smiley.innerHTML = "<img src='img/sad.jpg' style=height:50px; width:50px;/>";
     }
+}
+
+function selecionada() {
+
 }
 
 
