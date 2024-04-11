@@ -292,25 +292,6 @@ let select = <HTMLSelectElement>document.getElementById('select');
 if (select != null) select.addEventListener('change', selecionada, false);
 let valorSelect: string = select.options[select.selectedIndex].value;
 
-if (_contenedor != null) {
-    _contenedor.innerHTML = GeneradorHTML.dameHtml().toString() + GeneradorHTML.daContenedorIzq().toString() + GeneradorHTML.daContenedorDech().toString() + GeneradorHTML.daContenedorBoton().toString();
-}
-let contenedorBoton = document.getElementById('contBoton');
-if (contenedorBoton != null) {
-    contenedorBoton.innerHTML = GeneradorHTML.daBoton().toString();
-}
-let _contIzq = document.getElementById("contIzq");
-let _contDech = document.getElementById("contDech");
-if (_contIzq != null) {
-    _contIzq.innerHTML = GeneradorHTML.daContenidoIzq().toString();
-}
-if (_contDech != null) {
-    _contDech.innerHTML = GeneradorHTML.daContenidoDech().toString();
-}
-let _boton = document.getElementById("enviar");
-if (_boton != null) {
-    _boton.addEventListener("click", valida);
-}
 
 function valida() {
     let mostrador: IMuestra = ConfiguradorGeneral.dameMostrador();
