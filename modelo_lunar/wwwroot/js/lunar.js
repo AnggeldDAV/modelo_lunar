@@ -297,9 +297,18 @@ function vselec() {
             return new ValidadorSedimentarias();
     }
 }
+function htmlSelect() {
+    var valorSelect = selectPantalla.options[selectPantalla.selectedIndex].value;
+    switch (valorSelect) {
+        case "pantallaMovil":
+            return new HtmlPantallaMovil();
+        case "pantallaGrande":
+            return new HtmlPantallaGrande();
+    }
+}
 function selecionada() {
     var ConfiguradorGeneral = new ConfiguradorEquipoBasico();
-    var GeneradorHTML = ConfiguradorGeneral.dameGenerador(new HtmlPantallaGrande);
+    var GeneradorHTML = ConfiguradorGeneral.dameGenerador(htmlSelect());
     var principal = document.getElementById('contPrincipal');
     principal.innerHTML = GeneradorHTML.daContenedorPrincipal();
     var _contenedor = document.getElementById("contenedor");

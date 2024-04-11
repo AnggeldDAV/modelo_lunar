@@ -332,7 +332,8 @@ function vselec(): IValidableRocas {
     }
 }
 function htmlSelect(): IHtmlVariante {
-    switch (selectPantalla) {
+    let valorSelect: string = selectPantalla.options[selectPantalla.selectedIndex].value;
+    switch (valorSelect) {
         case "pantallaMovil":
             return new HtmlPantallaMovil();
         case "pantallaGrande":
